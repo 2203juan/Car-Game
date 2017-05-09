@@ -15,7 +15,7 @@ u=tkinter.PhotoImage(file="TryFont3m.png")#carga imagen mapa
 #photopo=tkinter.PhotoImage(file="Tryfont3m.png")
 carrov1 = tkinter.PhotoImage(file="UserCare.png")#carro verde
 carrov2 = tkinter. PhotoImage(file="UserCare.png")#carro verde
-explosion = tkinter. PhotoImage(file="explosion.png")#explosion de choque
+explosion = tkinter. PhotoImage(file="explosion1.png")#explosion de choque
 photo=tkinter.PhotoImage(file="BlueCare.png")#CarroRunnerAzul
 vancar=tkinter.PhotoImage(file="RedCare.png")#Carro Minivan rojo
 fighter=tkinter.PhotoImage(file="YellowCare.png")
@@ -162,11 +162,21 @@ def Runner():
     if(fondojuego.coords(h)[1]>600):
         fondojuego.move(h,100-z,-600)
         q=0
-       
+
+
+def colisiones():
+    #explo=fondojuego,create_image(
+    x1=fondojuego.coords(x)[0]
+    x2=fondojuego.coords(f)[0]
+    y1=fondojuego.coords(x)[1]
+    y2=fondojuego.coords(f)[1]
+    if(x1>=x2 and x1<=x2+40 and y1>=y2 and y1<=y2+81):
+           coli=fondojuego.create_image(x1,y1,image=explosion)
+           
 def fondomoving():
     
     for i in range(0,450):
-                    fondojuego.move(mapajuego,0,5)
+                    fondojuego.move(mapajuego,0,2)
                     v.update()
                 
 
@@ -177,7 +187,7 @@ def fondomoving():
 
 
     while fondojuego.coords(mapajuego)[0]>=0:
-        fondojuego.move(mapajuego,0,5)
+        fondojuego.move(mapajuego,0,2)
         v.update()
         fondomoving()
   
@@ -190,6 +200,7 @@ F=0
 #llamado de funciones
 def principal():
     fighteer(F,v2)
+    colisiones()
     Runner()
     MiniVan(v1)
     v.after(15,principal)
@@ -204,6 +215,7 @@ def lvl1():
     v2=3
     F=1
     principal()
+    #colisiones()
 v.iconify()
 boton2=tkinter.Button(ventana, image=imagen_2boton,command=lvl1).place(x=1200, y=300)
 
