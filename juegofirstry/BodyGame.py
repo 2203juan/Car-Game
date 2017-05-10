@@ -63,7 +63,7 @@ fondojuego=tkinter.Canvas(v, width=1350, height=700,bd=0,highlightthickness=0)
 
 #widgest que se crearán a partit de las imágenes con canvas
 mapajuego= fondojuego.create_image(680,200, image=u)#carga
-x = fondojuego.create_image(90,600,image=carrov1)
+x = fondojuego.create_image(100,600,image=carrov1)
 k = fondojuego.create_image(97,50,image=vancar)
 h=fondojuego.create_image(100,55, image=photo)
 f=fondojuego.create_image(250, 55, image=fighter)
@@ -81,7 +81,7 @@ def MiniVan(s):
     fondojuego.move(k, 0, s)
         
 
-    m = m + 1
+    #m = m + 1
         
     if(fondojuego.coords(k)[1]>700):
         fondojuego.move(k,x,-700)
@@ -165,31 +165,64 @@ def Runner():
 
 
 def colisiones():
-    #explo=fondojuego,create_image(
+    
     x1=fondojuego.coords(x)[0]
     x2=fondojuego.coords(f)[0]
+    x3=fondojuego.coords(k)[0]
+    x4=fondojuego.coords(h)[0]
     y1=fondojuego.coords(x)[1]
     y2=fondojuego.coords(f)[1]
+    y3=fondojuego.coords(k)[1]
+    y4=fondojuego.coords(h)[1]
+
+    #bordes
+    if(x1<=90):
+        coli=fondojuego.create_image(x1,y1,image=explosion)
+        return True
+    if(x1>=335):
+        coli=fondojuego.create_image(x1,y1,image=explosion)
+        return True
+        
+    
+    """
+    
     if(x1>=x2 and x1<=x2+40 and y1>=y2 and y1<=y2+81):
            coli=fondojuego.create_image(x1,y1,image=explosion)
-           
-def fondomoving():
+           return True
+    if(x1+40>=x2 and x1<=x2+40 and y1+40>=y2 and y1<=y2+81):
+           coli=fondojuego.create_image(x1,y1,image=explosion)
+           return True
+
+    """
     
-    for i in range(0,450):
-                    fondojuego.move(mapajuego,0,2)
-                    v.update()
-                
 
+
+def fondomoving():
+    #x=random.randint(0,50)
+    global fondojuego, m,v
+    
+    
+    fondojuego.move(mapajuego, 0, 15)
         
-    while(fondojuego.coords(mapajuego)[1]>800):
-        fondojuego.move(mapajuego,0,-800)
-        v.update()
+
+    m = m + 1
+        
+    #if(fondojuego.coords(po)[1]<6000):
+        #fondojuego.move(po,0,1000)
+
+    if(fondojuego.coords(mapajuego)[1]>3300):
+        fondojuego.move(mapajuego,0,-fondojuego.coords(mapajuego)[1])
+
+    v.after(10,fondomoving)
+  
+           
 
 
-    while fondojuego.coords(mapajuego)[0]>=0:
-        fondojuego.move(mapajuego,0,2)
-        v.update()
-        fondomoving()
+    
+    
+
+    
+    
   
 
 v1=0
@@ -200,20 +233,22 @@ F=0
 #llamado de funciones
 def principal():
     fighteer(F,v2)
-    colisiones()
+    if(colisiones()):
+        return 0
     Runner()
     MiniVan(v1)
     v.after(15,principal)
 #RunnerCar()
 def lvl1():
-    global v1,v2,F
+    global v1,v2,F,po
     fondojuego.focus_set()
-    v.after(5,fondomoving)
+    #v.after(5,fondomoving)
     v.deiconify()
     ventana.iconify()
     v1=2
     v2=3
     F=1
+    fondomoving()
     principal()
     #colisiones()
 v.iconify()
