@@ -32,7 +32,7 @@ photo=tkinter.PhotoImage(file="BlueCare.png")#CarroRunnerAzul
 vancar=tkinter.PhotoImage(file="RedCare.png")#Carro Minivan rojo
 fighter=tkinter.PhotoImage(file="YellowCare.png")
 
-user2=tkinter.PhotoImage(file="usercar2.png")
+user2=tkinter.PhotoImage(file="usercar2e.png")
 
 minivan2=tkinter.PhotoImage(file="RedCare.png")
 #fi2=tkinter.PhotoImage(file="YellowCare.png")
@@ -86,7 +86,7 @@ k = fondojuego.create_image(97,50,image=vancar)
 h=fondojuego.create_image(150,55, image=photo)
 f=fondojuego.create_image(250, 55, image=fighter)
 van2=fondojuego.create_image(1220,50,image=minivan2)
-u2=fondojuego.create_image(1250,50, image= user2)
+u2=fondojuego.create_image(1250,600, image= user2)
 #f2=fondojuego.create_image(1250, 55, image=fi2)
 
 #movimientofondo
