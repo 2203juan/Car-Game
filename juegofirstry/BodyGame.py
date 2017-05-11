@@ -10,6 +10,12 @@ v = tkinter.Toplevel()
 v.geometry("1890x1000")
 imagen1 = tkinter.PhotoImage(file="fondoprincipal.png")
 fondo = tkinter.Label(ventana, image=imagen1).place(x=0 ,y=0)
+
+x=tkinter.StringVar()
+fondojuego =tkinter.Canvas(v,height=600,width=900,bg="black")
+
+ho= []
+
 #var=tkinter.StringVar()#charge textvariable
 #fondotextos= tkinter.Label(ventana,textvariable =var,bg="black",fg="white")
 #cargo las imágenes a usar
@@ -27,6 +33,7 @@ vancar=tkinter.PhotoImage(file="RedCare.png")#Carro Minivan rojo
 fighter=tkinter.PhotoImage(file="YellowCare.png")
 
 minivan2=tkinter.PhotoImage(file="RedCare.png")
+#fi2=tkinter.PhotoImage(file="YellowCare.png")
 
 #cargo las imagenes de los botones
 imagen_2boton=tkinter.PhotoImage(file="Level1.png")
@@ -77,6 +84,7 @@ k = fondojuego.create_image(97,50,image=vancar)
 h=fondojuego.create_image(150,55, image=photo)
 f=fondojuego.create_image(250, 55, image=fighter)
 van2=fondojuego.create_image(1220,50,image=minivan2)
+#f2=fondojuego.create_image(1250, 55, image=fi2)
 
 #movimientofondo
 #po=fondojuego.create_image(680,200, image=photopo)
@@ -119,8 +127,25 @@ def MiniVan2(s):
 
     if(fondojuego.coords(van2)[0]>=1220):
         fondojuego.move(van2,-203,0)
-
-
+'''
+def Fighter2(X,Y):
+        """
+        Esta función mueve al carro de color amarillo , cuyo objetivo es perseguir al carro del jugador para chocarlo, es el enemigo más peligroso de los tres,
+        ya que ataca directamente al carro del jugador.
+        
+        """
+     
+        if(fondojuego.coords(x)[0]<fondojuego.coords(f2)[0]):
+            fondojuego.move(f2,-X,Y)
+            
+        if(fondojuego.coords(x)[0]>fondojuego.coords(f2)[0]):
+            fondojuego.move(f2,X,Y)
+            
+        if(fondojuego.coords(x)[0]==fondojuego.coords(f2)[0]):
+            fondojuego.move(f2,0,Y)
+        if(fondojuego.coords(f2)[1]>700):
+            fondojuego.move(f,0,-700)
+'''
 
 def Fighter(X,Y):
         """
@@ -142,26 +167,30 @@ def Fighter(X,Y):
 
 #usercar
 
-def key(event):
-    """
-    Esta función es la que permite al jugador mover su carro (el de color verde), haciendo uso del teclado.
-    """
-    global x,i,j
-    tecla = repr(event.char)
+def keyup(e):
+  global x,ho
+
+  if(e.keycode in ho):
+    ho.pop(ho.index(e.keycode))
    
-    if(tecla == "'d'" or tecla=="'D'"):
-        if(fondojuego.coords(x)[0] <331):
-            
-            i = i + 20
-          
-            fondojuego.move(x,15,0)
-            
-    if(tecla == "'a'" or tecla== "'A'"):
-        if(fondojuego.coords(x)[0]> 90):
-            
-            i = i - 20
-            fondojuego.move(x,-12,0)
-      
+
+def keydown(e):
+  global x,ho
+  if not e.keycode in ho:
+    ho.append(e.keycode)
+  
+     
+def key():
+  global ho
+  if(65 in ho):
+    fondojuego.move(x,-5,0)
+  if(74 in ho):
+    fondojuego.move(rec2,-5,0)
+  if(68 in ho):
+    fondojuego.move(x,5,0)
+  if(76 in ho):
+    fondojuego.move(rec2,5,0)
+
 
 
 def Runner():
@@ -289,9 +318,11 @@ def principal():
     """
     if not colisionesbor():
         Fighter(F,v2)
+        #Fighter2(F,v2)
         Runner()
         MiniVan(v1)
         MiniVan2(v1)
+        key()
         fondomoving()
         #var.set(entrada1.get())
         v.after(15,principal)
@@ -375,7 +406,8 @@ boton1 = tkinter.Button(ventana, image=imagen_1boton,command=ventana.destroy).pl
 
 
 # Liga el evento key al canvas
-fondojuego.bind("<Key>", key)
+fondojuego.bind("<KeyPress>",keydown)
+fondojuego.bind("<KeyRelease>",keyup)
 
 # Pone el foco en el canvas
 
