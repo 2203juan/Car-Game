@@ -42,7 +42,7 @@ j = 0
 m= 0
 i=0
 z=0
-
+q=0
 g = 0
 c = 0
 d = 5
@@ -72,16 +72,18 @@ f=fondojuego.create_image(250, 55, image=fighter)
 #po=fondojuego.create_image(680,200, image=photopo)
 
 
-#funciones
+#defino las funciones que van a dinamizar mi juego
 
 def MiniVan(s):
+    """
+    Esta función mueve verticalmenta la MiniVan, un carro de color rojo, cuyo objetivo es moverse verticalmente hacia abajo, siendo un   obstáculo
+    para el jugador, que por cierto es el menos peligroso, ya que no cambia de carril mientras se mueve, es decir, su movimiente es constante.
+    
+    """
     x=random.randint(0,50)
     global fondojuego, m
     
     fondojuego.move(k, 0, s)
-        
-
-    #m = m + 1
         
     if(fondojuego.coords(k)[1]>700):
         fondojuego.move(k,x,-700)
@@ -90,7 +92,12 @@ def MiniVan(s):
         fondojuego.move(k,-203,0)
 
 
-def fighteer(X,Y):
+def Fighter(X,Y):
+        """
+        Esta función mueve al carro de color amarillo , cuyo objetivo es perseguir al carro del jugador para chocarlo, es el enemigo más peligroso de los tres,
+        ya que ataca directamente al carro del jugador.
+        
+        """
      
         if(fondojuego.coords(x)[0]<fondojuego.coords(f)[0]):
             fondojuego.move(f,-X,Y)
@@ -107,41 +114,32 @@ def fighteer(X,Y):
 
 def key(event):
     """
+    Esta función es la que permite al jugador mover su carro (el de color verde), haciendo uso del teclado.
     """
     global x,i,j
     tecla = repr(event.char)
    
     if(tecla == "'d'" or tecla=="'D'"):
-        if(fondojuego.coords(x)[0] <330):
+        if(fondojuego.coords(x)[0] <331):
             
             i = i + 20
           
             fondojuego.move(x,15,0)
             
-            
-            """
-        elif i ==430:
-            fondojuego.delete(x)
-            i = -100
-            x = fondojuego.create_image(500+i,600+j,image=explosion)
-            """
     if(tecla == "'a'" or tecla== "'A'"):
         if(fondojuego.coords(x)[0]> 90):
             
             i = i - 20
             fondojuego.move(x,-12,0)
-            """
-        else:
-            fondojuego.delete(x)
-            x = fondojuego.create_image(500+i,600+j,image=explosion)
-            """
+      
 
-
-
-
-q= 0
 
 def Runner():
+    """
+    Esta función se encarga de mover el carro azul, cuyo objetivo es tratar de chocar al carro del jugador,ncambiando de carril constantemente
+    mientras se mueve verticalmente hacia abajo y horizontalmente de derecha a izquierda y visceversa.
+
+    """
     
     global fondojuego,h,q
     z =fondojuego.coords(h)[0]
@@ -164,18 +162,17 @@ def Runner():
         q=0
 
 
-def colisiones():
+def colisionesbor():
+    """
+    Esta función se encarga de hacer el efecto de explosión cuando el carro del jugador toca alguno de los dos extremos de la carretera, implicando
+    que si esto sucede, el jugador habrá perdido la partida.
+    
+    """
     
     x1=fondojuego.coords(x)[0]
-    x2=fondojuego.coords(f)[0]
-    x3=fondojuego.coords(k)[0]
-    x4=fondojuego.coords(h)[0]
     y1=fondojuego.coords(x)[1]
-    y2=fondojuego.coords(f)[1]
-    y3=fondojuego.coords(k)[1]
-    y4=fondojuego.coords(h)[1]
+   
 
-    #bordes
     if(x1<=90):
         coli=fondojuego.create_image(x1,y1,image=explosion)
         return True
@@ -194,26 +191,41 @@ def colisiones():
            return True
 
     """
+"""
+def colisionescarros():
+    ""
+    Esta función se encarga de hacer el efecto de choque entre el carro del jugador y los enemigos
+
+    ""
+    x1=fondojuego.coords(x)[0]
+    x2=fondojuego.coords(f)[0]
+    x3=fondojuego.coords(k)[0]
+    x4=fondojuego.coords(h)[0]
+    y1=fondojuego.coords(x)[1]
+    y2=fondojuego.coords(f)[1]
+    y3=fondojuego.coords(k)[1]
+    y4=fondojuego.coords(h)[1]
+
+"""    
     
 
 
 def fondomoving():
-    #x=random.randint(0,50)
-    global fondojuego, m,v
+    """
+    Esta función se encarga de mover el fondo para que la carretera tenga vida
+
+    """
+
+    global fondojuego, v
     
-    
-    fondojuego.move(mapajuego, 0, 15)
+    if  (colisionesbor()):
+        return 0
+    else:
         
-
-    m = m + 1
-        
-    #if(fondojuego.coords(po)[1]<6000):
-        #fondojuego.move(po,0,1000)
-
-    if(fondojuego.coords(mapajuego)[1]>3300):
-        fondojuego.move(mapajuego,0,-fondojuego.coords(mapajuego)[1])
-
-    v.after(10,fondomoving)
+        fondojuego.move(mapajuego, 0, 15)
+        if(fondojuego.coords(mapajuego)[1]>3300):
+            fondojuego.move(mapajuego,0,-fondojuego.coords(mapajuego)[1])
+        v.after(10,fondomoving)
   
            
 
@@ -232,24 +244,38 @@ F=0
 
 #llamado de funciones
 def principal():
-    fighteer(F,v2)
-    if(colisiones()):
-        return 0
-    Runner()
-    MiniVan(v1)
-    v.after(15,principal)
+    """
+    Esta función se encarga de llamar a todas las funciones antes creadas para que al momento de ser llamada empiecen todos los movimientos y se
+    pueda iniciar el juego en el respectivo nivel
+    
+    """
+    if not colisionesbor():
+        Fighter(F,v2)
+        Runner()
+        MiniVan(v1)
+        v.after(15,principal)
+    else:
+        return False
+    
 #RunnerCar()
 def lvl1():
+    """
+    En esta función se hará el llamado de la función principal, se darán valores para las funciones que tienen parámetros( los cuales se han creado con el fin de
+    controlar totalmente, y especialmente para poder darle dificultad a cada nivel , en este caso, al nivel 1), además se agregan condicionales que paran el juego
+    en caso de que el jugador pierda la partida
+
+    """
     global v1,v2,F,po
     fondojuego.focus_set()
-    #v.after(5,fondomoving)
     v.deiconify()
     ventana.iconify()
     v1=2
     v2=3
     F=1
-    fondomoving()
     principal()
+    if not (fondomoving()):
+        return 0
+    #principal()
     #colisiones()
 v.iconify()
 boton2=tkinter.Button(ventana, image=imagen_2boton,command=lvl1).place(x=1200, y=300)
