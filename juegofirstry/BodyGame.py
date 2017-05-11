@@ -32,6 +32,8 @@ photo=tkinter.PhotoImage(file="BlueCare.png")#CarroRunnerAzul
 vancar=tkinter.PhotoImage(file="RedCare.png")#Carro Minivan rojo
 fighter=tkinter.PhotoImage(file="YellowCare.png")
 
+user2=tkinter.PhotoImage(file="usercar2.png")
+
 minivan2=tkinter.PhotoImage(file="RedCare.png")
 #fi2=tkinter.PhotoImage(file="YellowCare.png")
 
@@ -84,6 +86,7 @@ k = fondojuego.create_image(97,50,image=vancar)
 h=fondojuego.create_image(150,55, image=photo)
 f=fondojuego.create_image(250, 55, image=fighter)
 van2=fondojuego.create_image(1220,50,image=minivan2)
+u2=fondojuego.create_image(1250,50, image= user2)
 #f2=fondojuego.create_image(1250, 55, image=fi2)
 
 #movimientofondo
@@ -177,6 +180,7 @@ def keyup(e):
 def keydown(e):
   global x,ho
   if not e.keycode in ho:
+      
     ho.append(e.keycode)
   
      
@@ -185,11 +189,11 @@ def key():
   if(65 in ho):
     fondojuego.move(x,-5,0)
   if(74 in ho):
-    fondojuego.move(rec2,-5,0)
+    fondojuego.move(u2,-5,0)
   if(68 in ho):
     fondojuego.move(x,5,0)
   if(76 in ho):
-    fondojuego.move(rec2,5,0)
+    fondojuego.move(u2,5,0)
 
 
 
