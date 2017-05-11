@@ -1,7 +1,7 @@
 import tkinter
 import time
 import random
-
+import math
 # Crea la ventana que tendrá el mapa la asocia a la variable v
 ventana = tkinter.Tk()
 ventana.title("Road Fighter")
@@ -10,8 +10,14 @@ v = tkinter.Toplevel()
 v.geometry("1890x1000")
 imagen1 = tkinter.PhotoImage(file="fondoprincipal.png")
 fondo = tkinter.Label(ventana, image=imagen1).place(x=0 ,y=0)
+#var=tkinter.StringVar()#charge textvariable
+#fondotextos= tkinter.Label(ventana,textvariable =var,bg="black",fg="white")
 #cargo las imágenes a usar
 u=tkinter.PhotoImage(file="TryFont3m.png")#carga imagen mapa
+#entradas nameplayers
+#nombre= tkinter.Label(ventana,text="Nombre del jugador 1", font=("Tempus Sans ITC",12)).place(x=20, y=395)
+#entrada1 = tkinter.Entry(ventana,font=("Tempus Sans ITC",12)).place(x=180, y = 395)
+
 #photopo=tkinter.PhotoImage(file="Tryfont3m.png")
 carrov1 = tkinter.PhotoImage(file="UserCare.png")#carro verde
 carrov2 = tkinter. PhotoImage(file="UserCare.png")#carro verde
@@ -19,6 +25,9 @@ explosion = tkinter. PhotoImage(file="explosion1.png")#explosion de choque
 photo=tkinter.PhotoImage(file="BlueCare.png")#CarroRunnerAzul
 vancar=tkinter.PhotoImage(file="RedCare.png")#Carro Minivan rojo
 fighter=tkinter.PhotoImage(file="YellowCare.png")
+
+minivan2=tkinter.PhotoImage(file="RedCare.png")
+
 #cargo las imagenes de los botones
 imagen_2boton=tkinter.PhotoImage(file="Level1.png")
 imagen_3boton=tkinter.PhotoImage(file="Level2.png")
@@ -65,8 +74,9 @@ fondojuego=tkinter.Canvas(v, width=1350, height=700,bd=0,highlightthickness=0)
 mapajuego= fondojuego.create_image(680,200, image=u)#carga
 x = fondojuego.create_image(100,600,image=carrov1)
 k = fondojuego.create_image(97,50,image=vancar)
-h=fondojuego.create_image(100,55, image=photo)
+h=fondojuego.create_image(150,55, image=photo)
 f=fondojuego.create_image(250, 55, image=fighter)
+van2=fondojuego.create_image(1220,50,image=minivan2)
 
 #movimientofondo
 #po=fondojuego.create_image(680,200, image=photopo)
@@ -90,6 +100,26 @@ def MiniVan(s):
 
     if(fondojuego.coords(k)[0]>=310):
         fondojuego.move(k,-203,0)
+
+def MiniVan2(s):
+    """
+    Esta función mueve verticalmenta la MiniVan, un carro de color rojo, cuyo objetivo es moverse verticalmente hacia abajo, siendo un   obstáculo
+    para el jugador, que por cierto es el menos peligroso, ya que no cambia de carril mientras se mueve, es decir, su movimiente es constante.
+    
+    """
+    global fondojuego, m
+
+    x=random.randint(0,50)
+  
+    
+    fondojuego.move(van2, 0, s)
+        
+    if(fondojuego.coords(van2)[1]>700):
+        fondojuego.move(van2,x,-700)
+
+    if(fondojuego.coords(van2)[0]>=1220):
+        fondojuego.move(van2,-203,0)
+
 
 
 def Fighter(X,Y):
@@ -139,7 +169,7 @@ def Runner():
     Esta función se encarga de mover el carro azul, cuyo objetivo es tratar de chocar al carro del jugador,ncambiando de carril constantemente
     mientras se mueve verticalmente hacia abajo y horizontalmente de derecha a izquierda y visceversa.
 
-    """
+    
     
     global fondojuego,h,q
     z =fondojuego.coords(h)[0]
@@ -157,11 +187,17 @@ def Runner():
          fondojuego.move(h,-5,3)
      
          q= q+1
+    
+    """
+    vv=3
+    z =fondojuego.coords(h)[0]
+    b= 7
+    i
+    y= math.sin(2*fondojuego.coords(h)[1]*math.pi/(300))*b
     if(fondojuego.coords(h)[1]>600):
         fondojuego.move(h,100-z,-600)
         q=0
-
-
+    fondojuego.move(h,y,vv)
 def colisionesbor():
     """
     Esta función se encarga de hacer el efecto de explosión cuando el carro del jugador toca alguno de los dos extremos de la carretera, implicando
@@ -225,13 +261,14 @@ def fondomoving():
         fondojuego.move(mapajuego, 0, 15)
         if(fondojuego.coords(mapajuego)[1]>3300):
             fondojuego.move(mapajuego,0,-fondojuego.coords(mapajuego)[1])
-        v.after(10,fondomoving)
+        
   
            
 
 
     
     
+
 
     
     
@@ -244,6 +281,7 @@ F=0
 
 #llamado de funciones
 def principal():
+    global entrada1
     """
     Esta función se encarga de llamar a todas las funciones antes creadas para que al momento de ser llamada empiecen todos los movimientos y se
     pueda iniciar el juego en el respectivo nivel
@@ -253,6 +291,9 @@ def principal():
         Fighter(F,v2)
         Runner()
         MiniVan(v1)
+        MiniVan2(v1)
+        fondomoving()
+        #var.set(entrada1.get())
         v.after(15,principal)
     else:
         return False
@@ -267,6 +308,7 @@ def lvl1():
     """
     global v1,v2,F,po
     fondojuego.focus_set()
+    
     v.deiconify()
     ventana.iconify()
     v1=2
@@ -339,7 +381,9 @@ fondojuego.bind("<Key>", key)
 
 
 #enpaquetado( mostrar lo hecho con canvas)
+#entrada1.focus_Set()
 fondojuego.pack()
+#fondotextos.pack()
 
 
 
