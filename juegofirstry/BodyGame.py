@@ -35,7 +35,9 @@ fighter=tkinter.PhotoImage(file="YellowCare.png")
 user2=tkinter.PhotoImage(file="usercar2e.png")
 
 minivan2=tkinter.PhotoImage(file="RedCare.png")
-#fi2=tkinter.PhotoImage(file="YellowCare.png")
+
+
+fi2=tkinter.PhotoImage(file="YellowCare.png")
 
 #cargo las imagenes de los botones
 imagen_2boton=tkinter.PhotoImage(file="Level1.png")
@@ -85,7 +87,7 @@ h=fondojuego.create_image(150,55, image=photo)
 f=fondojuego.create_image(250, 55, image=fighter)
 van2=fondojuego.create_image(1220,50,image=minivan2)
 u2=fondojuego.create_image(1250,600, image= user2)
-#f2=fondojuego.create_image(1250, 55, image=fi2)
+f2=fondojuego.create_image(1250, 55, image=fi2)
 
 #movimientofondo
 #po=fondojuego.create_image(680,200, image=photopo)
@@ -128,7 +130,7 @@ def MiniVan2(s):
 
     if(fondojuego.coords(van2)[0]>=1220):
         fondojuego.move(van2,-203,0)
-'''
+
 def Fighter2(X,Y):
         """
         Esta función mueve al carro de color amarillo , cuyo objetivo es perseguir al carro del jugador para chocarlo, es el enemigo más peligroso de los tres,
@@ -136,17 +138,17 @@ def Fighter2(X,Y):
         
         """
      
-        if(fondojuego.coords(x)[0]<fondojuego.coords(f2)[0]):
+        if(fondojuego.coords(u2)[0]<fondojuego.coords(f2)[0]):
             fondojuego.move(f2,-X,Y)
             
-        if(fondojuego.coords(x)[0]>fondojuego.coords(f2)[0]):
+        if(fondojuego.coords(u2)[0]>fondojuego.coords(f2)[0]):
             fondojuego.move(f2,X,Y)
             
-        if(fondojuego.coords(x)[0]==fondojuego.coords(f2)[0]):
+        if(fondojuego.coords(u2)[0]==fondojuego.coords(f2)[0]):
             fondojuego.move(f2,0,Y)
         if(fondojuego.coords(f2)[1]>700):
-            fondojuego.move(f,0,-700)
-'''
+            fondojuego.move(f2,0,-700)
+
 
 def Fighter(X,Y):
         """
@@ -329,7 +331,7 @@ def principal():
     """
     if not colisionesbor():
         Fighter(F,v2)
-        #Fighter2(F,v2)
+        Fighter2(F,v2)
         Runner()
         MiniVan(v1)
         MiniVan2(v1)
