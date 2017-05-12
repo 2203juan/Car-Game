@@ -36,6 +36,8 @@ user2=tkinter.PhotoImage(file="usercar2e.png")
 
 minivan2=tkinter.PhotoImage(file="RedCare.png")
 
+run2=tkinter.PhotoImage(file="BlueCare.png")
+
 
 fi2=tkinter.PhotoImage(file="YellowCare.png")
 
@@ -88,6 +90,7 @@ f=fondojuego.create_image(250, 55, image=fighter)
 van2=fondojuego.create_image(1220,50,image=minivan2)
 u2=fondojuego.create_image(1250,600, image= user2)
 f2=fondojuego.create_image(1250, 55, image=fi2)
+r2=fondojuego.create_image(1100,55, image=run2)
 
 #movimientofondo
 #po=fondojuego.create_image(680,200, image=photopo)
@@ -186,14 +189,14 @@ def keydown(e):
      
 def key():
   global ho
-  if(65 in ho):
+  if(65 in ho):  #letra A en código ascii
     fondojuego.move(x,-5,0)
-  if(74 in ho):
-    fondojuego.move(u2,-5,0)
+  if(37 in ho):
+    fondojuego.move(u2,-5,0) #flecha de dirección izquiera en código ascii
   if(68 in ho):
-    fondojuego.move(x,5,0)
-  if(76 in ho):
-    fondojuego.move(u2,5,0)
+    fondojuego.move(x,5,0) #letra D en código ascii
+  if(39 in ho):
+    fondojuego.move(u2,5,0) #flecha de dirección derecha en código ascii
 
 
 
@@ -202,35 +205,33 @@ def Runner():
     Esta función se encarga de mover el carro azul, cuyo objetivo es tratar de chocar al carro del jugador,ncambiando de carril constantemente
     mientras se mueve verticalmente hacia abajo y horizontalmente de derecha a izquierda y visceversa.
 
-    
-    
-    global fondojuego,h,q
-    z =fondojuego.coords(h)[0]
-    if((q>=0 and q<50)or (q>100 and q<150) or (q>200 and q<250)):
-       
-        fondojuego.move(h,5,3)
-        
-
-    
-        q = q+ 1
-     
-
-    elif(q<=100 or q<200 or q<250):
-         
-         fondojuego.move(h,-5,3)
-     
-         q= q+1
-    
     """
     vv=3
     z =fondojuego.coords(h)[0]
     b= 7
-    i
+    
     y= math.sin(2*fondojuego.coords(h)[1]*math.pi/(300))*b
     if(fondojuego.coords(h)[1]>600):
         fondojuego.move(h,100-z,-600)
         q=0
     fondojuego.move(h,y,vv)
+
+
+def Runner2():
+    """
+    Esta función se encarga de mover el carro azul, cuyo objetivo es tratar de chocar al carro del jugador,ncambiando de carril constantemente
+    mientras se mueve verticalmente hacia abajo y horizontalmente de derecha a izquierda y visceversa.
+
+    """
+    vv=3
+    z =fondojuego.coords(r2)[0]
+    b= 7
+    
+    y= math.sin(2*fondojuego.coords(r2)[1]*math.pi/(300))*b
+    if(fondojuego.coords(r2)[1]>=600):
+        fondojuego.move(r2,1015-z,-600)
+        q=0
+    fondojuego.move(r2,y,vv)
 def colisionesbor():
     """
     Esta función se encarga de hacer el efecto de explosión cuando el carro del jugador toca alguno de los dos extremos de la carretera, implicando
@@ -333,6 +334,7 @@ def principal():
         Fighter(F,v2)
         Fighter2(F,v2)
         Runner()
+        Runner2()
         MiniVan(v1)
         MiniVan2(v1)
         key()
