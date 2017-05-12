@@ -11,6 +11,8 @@ v.geometry("1890x1000")
 imagen1 = tkinter.PhotoImage(file="fondoprincipal.png")
 fondo = tkinter.Label(ventana, image=imagen1).place(x=0 ,y=0)
 
+
+
 x=tkinter.StringVar()
 fondojuego =tkinter.Canvas(v,height=600,width=900,bg="black")
 
@@ -19,7 +21,10 @@ ho= []
 #var=tkinter.StringVar()#charge textvariable
 #fondotextos= tkinter.Label(ventana,textvariable =var,bg="black",fg="white")
 #cargo las imágenes a usar
-u=tkinter.PhotoImage(file="TryFont3m.png")#carga imagen mapa
+fondomarder=tkinter.PhotoImage(file="marderecha.png")
+fondomarizq=tkinter.PhotoImage(file="marizq.png")
+centro1=tkinter.PhotoImage(file="centermar.png")
+#u=tkinter.PhotoImage(file="TryFont3m.png")#carga imagen mapa
 #entradas nameplayers
 #nombre= tkinter.Label(ventana,text="Nombre del jugador 1", font=("Tempus Sans ITC",12)).place(x=20, y=395)
 #entrada1 = tkinter.Entry(ventana,font=("Tempus Sans ITC",12)).place(x=180, y = 395)
@@ -84,7 +89,10 @@ fondojuego=tkinter.Canvas(v, width=1350, height=700,bd=0,highlightthickness=0)
 
 
 #widgest que se crearán a partit de las imágenes con canvas
-mapajuego= fondojuego.create_image(680,200, image=u)#carga
+#mapajuego= fondojuego.create_image(680,200, image=u)#carga
+mard=fondojuego.create_image(1145,55, image=fondomarder)
+mari=fondojuego.create_image(230,55, image=fondomarizq)
+c1=fondojuego.create_image(695,340, image=centro1)#centro estático
 x = fondojuego.create_image(100,600,image=carrov1)
 k = fondojuego.create_image(97,50,image=vancar)
 h=fondojuego.create_image(150,55, image=photo)
@@ -94,6 +102,7 @@ u2=fondojuego.create_image(1250,600, image= user2)
 f2=fondojuego.create_image(1250, 55, image=fi2)
 r2=fondojuego.create_image(1100,55, image=run2)
 ga=fondojuego.create_image(200,55, image=chargegas)
+
 
 #movimientofondo
 #po=fondojuego.create_image(680,200, image=photopo)
@@ -324,9 +333,26 @@ def fondomoving():
         return 0
     else:
         
-        fondojuego.move(mapajuego, 0, 15)
-        if(fondojuego.coords(mapajuego)[1]>3300):
-            fondojuego.move(mapajuego,0,-fondojuego.coords(mapajuego)[1])
+        fondojuego.move(mard, 0, 15)
+        if(fondojuego.coords(mard)[1]>2500):
+            fondojuego.move(mard,0,-fondojuego.coords(mard)[1])
+
+def fondomoving2():
+    """
+    Esta función se encarga de mover el fondo para que la carretera tenga vida
+
+    """
+
+    global fondojuego, v
+    
+    if  (colisionesbor()):
+        return 0
+    else:
+        
+        fondojuego.move(mari, 0, 15)
+        if(fondojuego.coords(mari)[1]>2500):
+            fondojuego.move(mari,0,-fondojuego.coords(mari)[1])
+
         
   
            
@@ -363,6 +389,7 @@ def principal():
         charge(v1)
         key()
         fondomoving()
+        fondomoving2()
         #var.set(entrada1.get())
         v.after(15,principal)
     else:
@@ -386,6 +413,8 @@ def lvl1():
     F=1
     principal()
     if not (fondomoving()):
+        return 0
+    if not (fondomoving2()):
         return 0
     #principal()
     #colisiones()
