@@ -77,8 +77,6 @@ fondojuego=tkinter.Canvas(v, width=1350, height=700,bd=0,highlightthickness=0)
 
 
 
-
-
 #widgest que se crearán a partit de las imágenes con canvas
 mapajuego= fondojuego.create_image(680,200, image=u)#carga
 x = fondojuego.create_image(100,600,image=carrov1)
@@ -97,7 +95,7 @@ u2=fondojuego.create_image(1250,600, image= user2)
 
 def MiniVan(s):
     """
-    Esta función mueve verticalmenta la MiniVan, un carro de color rojo, cuyo objetivo es moverse verticalmente hacia abajo, siendo un   obstáculo
+    Esta función mueve verticalmente la MiniVan, un carro de color rojo, cuyo objetivo es moverse verticalmente hacia abajo, siendo un   obstáculo
     para el jugador, que por cierto es el menos peligroso, ya que no cambia de carril mientras se mueve, es decir, su movimiente es constante.
     
     """
@@ -240,6 +238,8 @@ def colisionesbor():
     
     x1=fondojuego.coords(x)[0]
     y1=fondojuego.coords(x)[1]
+    x2= fondojuego.coords(u2)[0]
+    y2=fondojuego.coords(u2)[1]
    
 
     if(x1<=90):
@@ -248,6 +248,13 @@ def colisionesbor():
     if(x1>=335):
         coli=fondojuego.create_image(x1,y1,image=explosion)
         return True
+    if(x2<=1010):
+        coli=fondojuego.create_image(x2,y2,image=explosion)
+        return True
+    if(x2>=1260):
+        coli=fondojuego.create_image(x2,y2,image=explosion)
+        return True
+    
         
     
     """
