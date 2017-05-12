@@ -41,6 +41,8 @@ run2=tkinter.PhotoImage(file="BlueCare.png")
 
 fi2=tkinter.PhotoImage(file="YellowCare.png")
 
+chargegas=tkinter.PhotoImage(file="Recarga.png")
+
 #cargo las imagenes de los botones
 imagen_2boton=tkinter.PhotoImage(file="Level1.png")
 imagen_3boton=tkinter.PhotoImage(file="Level2.png")
@@ -91,6 +93,7 @@ van2=fondojuego.create_image(1220,50,image=minivan2)
 u2=fondojuego.create_image(1250,600, image= user2)
 f2=fondojuego.create_image(1250, 55, image=fi2)
 r2=fondojuego.create_image(1100,55, image=run2)
+ga=fondojuego.create_image(200,55, image=chargegas)
 
 #movimientofondo
 #po=fondojuego.create_image(680,200, image=photopo)
@@ -170,6 +173,26 @@ def Fighter(X,Y):
             fondojuego.move(f,0,Y)
         if(fondojuego.coords(f)[1]>700):
             fondojuego.move(f,0,-700)
+
+def charge(s):
+    """
+    Esta función mueve verticalmenta la MiniVan, un carro de color rojo, cuyo objetivo es moverse verticalmente hacia abajo, siendo un   obstáculo
+    para el jugador, que por cierto es el menos peligroso, ya que no cambia de carril mientras se mueve, es decir, su movimiente es constante.
+    
+    """
+    global fondojuego, m
+
+    x=random.randint(0,50)
+  
+    
+    fondojuego.move(ga, 0, s)
+        
+    if(fondojuego.coords(ga)[1]>700):
+        fondojuego.move(ga,x,-700)
+
+    if(fondojuego.coords(ga)[0]>=1220):
+        fondojuego.move(ga,-203,0)
+
 
 #usercar
 
@@ -337,6 +360,7 @@ def principal():
         Runner2()
         MiniVan(v1)
         MiniVan2(v1)
+        charge(v1)
         key()
         fondomoving()
         #var.set(entrada1.get())
