@@ -92,7 +92,7 @@ fondojuego=tkinter.Canvas(v, width=1350, height=700,bd=0,highlightthickness=0)
 #mapajuego= fondojuego.create_image(680,200, image=u)#carga
 mard=fondojuego.create_image(1145,55, image=fondomarder)
 mari=fondojuego.create_image(230,55, image=fondomarizq)
-c1=fondojuego.create_image(695,380, image=centro1)#centro estático
+c1=fondojuego.create_image(695,370, image=centro1)#centro estático
 x = fondojuego.create_image(100,600,image=carrov1)
 k = fondojuego.create_image(97,50,image=vancar)
 h=fondojuego.create_image(150,55, image=photo)
@@ -223,18 +223,12 @@ def key():
   global ho
   if(65 in ho):  #letra A en código ascii
     fondojuego.move(x,-5,0)
- 
+  if(37 in ho):
+    fondojuego.move(u2,-5,0) #flecha de dirección izquiera en código ascii
   if(68 in ho):
     fondojuego.move(x,5,0) #letra D en código ascii
-  
-def key2():
-    
-    if(37 in ho):
-        fondojuego.move(u2,-5,0) #flecha de dirección izquiera en código ascii
-    if(39 in ho):
-        fondojuego.move(u2,5,0) #flecha de dirección derecha en código ascii
-
-    
+  if(39 in ho):
+    fondojuego.move(u2,5,0) #flecha de dirección derecha en código ascii
 
 
 
@@ -242,7 +236,6 @@ def Runner():
     """
     Esta función se encarga de mover el carro azul, cuyo objetivo es tratar de chocar al carro del jugador,ncambiando de carril constantemente
     mientras se mueve verticalmente hacia abajo y horizontalmente de derecha a izquierda y visceversa.
-
     """
     vv=3
     z =fondojuego.coords(h)[0]
@@ -259,7 +252,6 @@ def Runner2():
     """
     Esta función se encarga de mover el carro azul, cuyo objetivo es tratar de chocar al carro del jugador,ncambiando de carril constantemente
     mientras se mueve verticalmente hacia abajo y horizontalmente de derecha a izquierda y visceversa.
-
     """
     vv=3
     z =fondojuego.coords(r2)[0]
@@ -279,6 +271,8 @@ def colisionesbor():
     
     x1=fondojuego.coords(x)[0]
     y1=fondojuego.coords(x)[1]
+    x2= fondojuego.coords(u2)[0]
+    y2=fondojuego.coords(u2)[1]
    
 
     if(x1<=90):
@@ -287,28 +281,13 @@ def colisionesbor():
     if(x1>=335):
         coli=fondojuego.create_image(x1,y1,image=explosion)
         return True
-
-
-def colisionesbor2():
-    """
-    Esta función se encarga de hacer el efecto de explosión cuando el carro del jugador toca alguno de los dos extremos de la carretera, implicando
-    que si esto sucede, el jugador habrá perdido la partida.
-    
-    """
-    
-  
-    x2= fondojuego.coords(u2)[0]
-    y2=fondojuego.coords(u2)[1]
-   
-
-   
     if(x2<=1010):
         coli=fondojuego.create_image(x2,y2,image=explosion)
         return True
     if(x2>=1260):
         coli=fondojuego.create_image(x2,y2,image=explosion)
         return True
-
+    
         
     
     """
@@ -319,13 +298,11 @@ def colisionesbor2():
     if(x1+40>=x2 and x1<=x2+40 and y1+40>=y2 and y1<=y2+81):
            coli=fondojuego.create_image(x1,y1,image=explosion)
            return True
-
     """
 """
 def colisionescarros():
     ""
     Esta función se encarga de hacer el efecto de choque entre el carro del jugador y los enemigos
-
     ""
     x1=fondojuego.coords(x)[0]
     x2=fondojuego.coords(f)[0]
@@ -335,37 +312,39 @@ def colisionescarros():
     y2=fondojuego.coords(f)[1]
     y3=fondojuego.coords(k)[1]
     y4=fondojuego.coords(h)[1]
-
 """    
     
 
 
 def fondomoving():
     """
-    Esta función se encarga de mover el fondo de la parte izquierda para que la carretera tenga vida
-
+    Esta función se encarga de mover el fondo para que la carretera tenga vida
     """
 
     global fondojuego, v
     
-
-    fondojuego.move(mari, 0, 15)
-    if(fondojuego.coords(mari)[1]>2500):
-            fondojuego.move(mari,0,-fondojuego.coords(mari)[1])
+    if  (colisionesbor()):
+        return 0
+    else:
+        
+        fondojuego.move(mard, 0, 15)
+        if(fondojuego.coords(mard)[1]>2500):
+            fondojuego.move(mard,0,-fondojuego.coords(mard)[1])
 
 def fondomoving2():
     """
-    Esta función se encarga de mover el fondo de la parte derecha para que la carretera tenga vida
-
+    Esta función se encarga de mover el fondo para que la carretera tenga vida
     """
 
     global fondojuego, v
     
-
+    if  (colisionesbor()):
+        return 0
+    else:
         
-    fondojuego.move(mard, 0, 15)
-    if(fondojuego.coords(mard)[1]>2500):
-            fondojuego.move(mard,0,-fondojuego.coords(mard)[1])
+        fondojuego.move(mari, 0, 15)
+        if(fondojuego.coords(mari)[1]>2500):
+            fondojuego.move(mari,0,-fondojuego.coords(mari)[1])
 
         
   
@@ -393,50 +372,28 @@ def principal():
     pueda iniciar el juego en el respectivo nivel
     
     """
-    if colisionesbor():
-        return 0
-    
-    
-
-    else:
+    if not colisionesbor():
         Fighter(F,v2)
-        MiniVan(v1)
-       
+        Fighter2(F,v2)
         Runner()
-        fondomoving()
-     
+        Runner2()
+        MiniVan(v1)
+        MiniVan2(v1)
         charge(v1)
-           
-
         key()
-        
-      
+        fondomoving()
+        fondomoving2()
         #var.set(entrada1.get())
         v.after(15,principal)
-
-def principal2():
-
-    if  colisionesbor2():
-        return 0
-           
-
     else:
-            MiniVan2(v1)
-            Fighter2(F,v2)
-            Runner2()
-            fondomoving2()
-            #charge(v1)
-            key2()
-            v.after(15, principal2)
-
-        
+        return False
+    
 #RunnerCar()
 def lvl1():
     """
     En esta función se hará el llamado de la función principal, se darán valores para las funciones que tienen parámetros( los cuales se han creado con el fin de
     controlar totalmente, y especialmente para poder darle dificultad a cada nivel , en este caso, al nivel 1), además se agregan condicionales que paran el juego
     en caso de que el jugador pierda la partida
-
     """
     global v1,v2,F,po
     fondojuego.focus_set()
@@ -447,8 +404,12 @@ def lvl1():
     v2=3
     F=1
     principal()
-    principal2()
-
+    if not (fondomoving()):
+        return 0
+    if not (fondomoving2()):
+        return 0
+    #principal()
+    #colisiones()
 v.iconify()
 boton2=tkinter.Button(ventana, image=imagen_2boton,command=lvl1).place(x=1200, y=300)
 
