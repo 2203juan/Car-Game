@@ -36,8 +36,11 @@ explosion = tkinter. PhotoImage(file="explosion1.png")#explosion de choque
 photo=tkinter.PhotoImage(file="BlueCare.png")#CarroRunnerAzul
 vancar=tkinter.PhotoImage(file="RedCare.png")#Carro Minivan rojo
 fighter=tkinter.PhotoImage(file="YellowCare.png")
+usuariouno45= tkinter.PhotoImage(file="jugador145.png")
 
 user2=tkinter.PhotoImage(file="usercar2e.png")
+
+
 
 minivan2=tkinter.PhotoImage(file="RedCare.png")
 
@@ -99,6 +102,7 @@ h=fondojuego.create_image(150,55, image=photo)
 f=fondojuego.create_image(250, 55, image=fighter)
 van2=fondojuego.create_image(1220,50,image=minivan2)
 u2=fondojuego.create_image(1250,600, image= user2)
+
 f2=fondojuego.create_image(1250, 55, image=fi2)
 r2=fondojuego.create_image(1100,55, image=run2)
 ga=fondojuego.create_image(200,55, image=chargegas)
@@ -311,22 +315,17 @@ def colisionesbor2():
 
         
     
-    """
-    
-    if(x1>=x2 and x1<=x2+40 and y1>=y2 and y1<=y2+81):
-           coli=fondojuego.create_image(x1,y1,image=explosion)
-           return True
-    if(x1+40>=x2 and x1<=x2+40 and y1+40>=y2 and y1<=y2+81):
-           coli=fondojuego.create_image(x1,y1,image=explosion)
-           return True
 
-    """
-"""
+    
+  
+
+
+    
 def colisionescarros():
-    ""
+    '''
     Esta función se encarga de hacer el efecto de choque entre el carro del jugador y los enemigos
 
-    ""
+    '''
     x1=fondojuego.coords(x)[0]
     x2=fondojuego.coords(f)[0]
     x3=fondojuego.coords(k)[0]
@@ -336,7 +335,17 @@ def colisionescarros():
     y3=fondojuego.coords(k)[1]
     y4=fondojuego.coords(h)[1]
 
-"""    
+   # if(x1>=x2 and x1<=x2+40 and y1>=y2 and y1<=y2+81):
+           #fondojuego.delete(x)
+           #coli=fondojuego.create_image(x1,y1,image=usuariouno45)
+    """
+    if(x1+40>=x2 and x1<=x2+40 and y1+40>=y2 and y1<=y2+81):
+           fondojuego.delete(x)
+           coli=fondojuego.create_image(x1,y1,image=usuariouno45)
+
+           return True
+    """
+
     
 
 
@@ -401,7 +410,7 @@ def principal():
     else:
         Fighter(F,v2)
         MiniVan(v1)
-       
+        colisionescarros()
         Runner()
         fondomoving()
      
