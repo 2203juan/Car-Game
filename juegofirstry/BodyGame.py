@@ -479,7 +479,7 @@ F=0
 
 imagenizquierda=mari
 imagenderecha=mard
-velocity=15
+velocity=10
 
 
 #llamado de funciones
@@ -543,6 +543,7 @@ def lvl1():
     global v1,v2,F,po, imagenizquierda, velocity
     fondojuego.delete(tierrizq)
     fondojuego.delete(tierrder)
+    fondojuego.delete(c2)
     fondojuego.focus_set()
     
     
@@ -567,10 +568,10 @@ def lvl2():
     ventana.iconify()
     v1=3
     v2=4
-    F=1.5
+    F=1.2
     imagenizquierda=tierrizq
     imagenderecha=tierrder
-    velocity=16
+    velocity=13
     principal()
     principal2()
 v.iconify()
