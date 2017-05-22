@@ -13,22 +13,34 @@ fondo = tkinter.Label(ventana, image=imagen1).place(x=0 ,y=0)
 
 
 
-x=tkinter.StringVar()
+#x=tkinter.StringVar()
 fondojuego =tkinter.Canvas(v,height=600,width=900,bg="black")
 
 ho= []
 
-#var=tkinter.StringVar()#charge textvariable
+var=tkinter.StringVar()#charge textvariable
 #fondotextos= tkinter.Label(ventana,textvariable =var,bg="black",fg="white")
 #cargo las imágenes a usar
+
+
+#fondos primer nivel
 fondomarder=tkinter.PhotoImage(file="marderecha.png")
 fondomarizq=tkinter.PhotoImage(file="marizq.png")
 centro1=tkinter.PhotoImage(file="centermar.png")
-#u=tkinter.PhotoImage(file="TryFont3m.png")#carga imagen mapa
-#entradas nameplayers
-#nombre= tkinter.Label(ventana,text="Nombre del jugador 1", font=("Tempus Sans ITC",12)).place(x=20, y=395)
-#entrada1 = tkinter.Entry(ventana,font=("Tempus Sans ITC",12)).place(x=180, y = 395)
 
+
+#fondos segundo nivel
+fondotierraizq=tkinter.PhotoImage(file="tierraizq.png")
+fondotierrader=tkinter.PhotoImage(file="tierrader.png")
+centro2=tkinter.PhotoImage(file="centertierra.png")
+
+
+
+#entradas nameplayers
+nombre= tkinter.Label(ventana,text="Nombre del jugador 1", font=("Tempus Sans ITC",12),fg="black").place(x=20, y=395)
+entrada1 = tkinter.Entry(ventana,font=("Tempus Sans ITC",12)).place(x=180, y = 395)
+
+muestraplayer1= tkinter.Label(v,textvariable=var, font=("Tempus Sans ITC",12),fg="black")
 #photopo=tkinter.PhotoImage(file="Tryfont3m.png")
 carrov1 = tkinter.PhotoImage(file="UserCare.png")#carro verde
 carrov2 = tkinter. PhotoImage(file="UserCare.png")#carro verde
@@ -39,7 +51,7 @@ fighter=tkinter.PhotoImage(file="YellowCare.png")
 usuariouno45= tkinter.PhotoImage(file="jugador145.png")
 
 user2=tkinter.PhotoImage(file="usercar2e.png")
-
+entrada1 =tkinter.StringVar()
 
 
 minivan2=tkinter.PhotoImage(file="RedCare.png")
@@ -93,9 +105,31 @@ fondojuego=tkinter.Canvas(v, width=1350, height=700,bd=0,highlightthickness=0)
 
 #widgest que se crearán a partit de las imágenes con canvas
 #mapajuego= fondojuego.create_image(680,200, image=u)#carga
+
+
+
+
+
+#widgest del fondo nivel1
 mard=fondojuego.create_image(1145,55, image=fondomarder)
 mari=fondojuego.create_image(230,55, image=fondomarizq)
 c1=fondojuego.create_image(695,380, image=centro1)#centro estático
+
+# widgest del fondo nivel 2
+tierrizq=fondojuego.create_image(230,55, image=fondotierraizq)
+tierrder=fondojuego.create_image(1145,55,image=fondotierrader)
+c2=fondojuego.create_image(690,380, image=centro2)#centro estático
+
+
+
+
+
+
+
+
+
+
+#widgest de carros, obastáculos y enemigos
 x = fondojuego.create_image(100,600,image=carrov1)
 k = fondojuego.create_image(97,50,image=vancar)
 h=fondojuego.create_image(150,55, image=photo)
@@ -106,6 +140,8 @@ u2=fondojuego.create_image(1250,600, image= user2)
 f2=fondojuego.create_image(1250, 55, image=fi2)
 r2=fondojuego.create_image(1100,55, image=run2)
 ga=fondojuego.create_image(200,55, image=chargegas)
+
+
 
 
 #movimientofondo
@@ -322,10 +358,14 @@ def colisionesbor2():
 
     
 def colisionescarros():
+    global x
     '''
     Esta función se encarga de hacer el efecto de choque entre el carro del jugador y los enemigos
 
     '''
+  
+    
+
     x1=fondojuego.coords(x)[0]
     x2=fondojuego.coords(f)[0]
     x3=fondojuego.coords(k)[0]
@@ -334,22 +374,65 @@ def colisionescarros():
     y2=fondojuego.coords(f)[1]
     y3=fondojuego.coords(k)[1]
     y4=fondojuego.coords(h)[1]
+    #s=x
+    if(x1>=x2 and x1<=x2+40 and y1>=y2 and y1<=y2+81):
+        fondojuego.delete(x)
+        
 
-   # if(x1>=x2 and x1<=x2+40 and y1>=y2 and y1<=y2+81):
-           #fondojuego.delete(x)
-           #coli=fondojuego.create_image(x1,y1,image=usuariouno45)
-    """
-    if(x1+40>=x2 and x1<=x2+40 and y1+40>=y2 and y1<=y2+81):
+
+        """
+           x=fondojuego.create_image(fondojuego.coords(x)[0],fondojuego.coords(x)[1],image=usuariouno45)
+           
+           
+           fondojuego.delete(s)
+
+           s=x
+           
+        
+           
+           x=fondojuego.create_image(fondojuego.coords(x)[0],fondojuego.coords(x)[1],image=carrov1)
+           
+           
            fondojuego.delete(x)
+           x=s
+           
+          """
+    
+    if(x1+40>=x2 and x1<=x2+40 and y1+40>=y2 and y1<=y2+81):
+        fondojuego.delete(x)
+
+        
+        """
+           x=fondojuego.create_image(fondojuego.coords(x)[0],fondojuego.coords(x)[1],image=usuariouno45)
+           
+           
+           fondojuego.delete(s)
+
+           s=x
+           
+        
+           
+           x=fondojuego.create_image(fondojuego.coords(x)[0],fondojuego.coords(x)[1],image=carrov1)
+           
+           
+           fondojuego.delete(x)
+           x=s
+           
+           
+           
+           "'
            coli=fondojuego.create_image(x1,y1,image=usuariouno45)
+           time.sleep(0.5)
+           delete(coli)
 
            return True
-    """
+
+            ""
 
     
+"""
 
-
-def fondomoving():
+def fondomoving(fondoizquierda,velocidad):
     """
     Esta función se encarga de mover el fondo de la parte izquierda para que la carretera tenga vida
 
@@ -358,11 +441,11 @@ def fondomoving():
     global fondojuego, v
     
 
-    fondojuego.move(mari, 0, 15)
-    if(fondojuego.coords(mari)[1]>2500):
-            fondojuego.move(mari,0,-fondojuego.coords(mari)[1])
+    fondojuego.move(fondoizquierda, 0, 15)
+    if(fondojuego.coords(fondoizquierda)[1]>2500):
+            fondojuego.move(fondoizquierda,0,-fondojuego.coords(fondoizquierda)[1])
 
-def fondomoving2():
+def fondomoving2(fondoderecha,velocidad):
     """
     Esta función se encarga de mover el fondo de la parte derecha para que la carretera tenga vida
 
@@ -372,9 +455,9 @@ def fondomoving2():
     
 
         
-    fondojuego.move(mard, 0, 15)
-    if(fondojuego.coords(mard)[1]>2500):
-            fondojuego.move(mard,0,-fondojuego.coords(mard)[1])
+    fondojuego.move(fondoderecha, 0, velocidad)
+    if(fondojuego.coords(fondoderecha)[1]>2500):
+            fondojuego.move(fondoderecha,0,-fondojuego.coords(fondoderecha)[1])
 
         
   
@@ -394,9 +477,16 @@ v2=0
 v3=0
 F=0
 
+imagenizquierda=mari
+imagenderecha=mard
+velocity=15
+
+
 #llamado de funciones
 def principal():
-    global entrada1
+    global entrad1, imagenizquierda, velocity
+
+
     """
     Esta función se encarga de llamar a todas las funciones antes creadas para que al momento de ser llamada empiecen todos los movimientos y se
     pueda iniciar el juego en el respectivo nivel
@@ -408,22 +498,25 @@ def principal():
     
 
     else:
+        
         Fighter(F,v2)
         MiniVan(v1)
-        colisionescarros()
+        
         Runner()
-        fondomoving()
-     
+        fondomoving(imagenizquierda,velocity)
+        
         charge(v1)
-           
+        #colisionescarros() 
 
         key()
         
       
-        #var.set(entrada1.get())
+        #print(var.set())
         v.after(15,principal)
 
+
 def principal2():
+    global imagenderecha, velocity
 
     if  colisionesbor2():
         return 0
@@ -433,7 +526,7 @@ def principal2():
             MiniVan2(v1)
             Fighter2(F,v2)
             Runner2()
-            fondomoving2()
+            fondomoving2(imagenderecha,velocity)
             #charge(v1)
             key2()
             v.after(15, principal2)
@@ -447,14 +540,19 @@ def lvl1():
     en caso de que el jugador pierda la partida
 
     """
-    global v1,v2,F,po
+    global v1,v2,F,po, imagenizquierda, velocity
+    fondojuego.delete(tierrizq)
+    fondojuego.delete(tierrder)
     fondojuego.focus_set()
+    
     
     v.deiconify()
     ventana.iconify()
     v1=2
     v2=3
     F=1
+
+
     principal()
     principal2()
 
@@ -462,14 +560,19 @@ v.iconify()
 boton2=tkinter.Button(ventana, image=imagen_2boton,command=lvl1).place(x=1200, y=300)
 
 def lvl2():
-    global v1,v2,F
+    global v1,v2,F, imagenizquierda, velocity, imagenderecha
+    fondojuego.delete(c1)
     fondojuego.focus_set()
     v.deiconify()
     ventana.iconify()
     v1=3
     v2=4
     F=1.5
+    imagenizquierda=tierrizq
+    imagenderecha=tierrder
+    velocity=16
     principal()
+    principal2()
 v.iconify()
 boton3=tkinter.Button(ventana, image=imagen_3boton,command=lvl2).place(x=1200, y=350)
 
@@ -523,6 +626,7 @@ fondojuego.bind("<KeyRelease>",keyup)
 #enpaquetado( mostrar lo hecho con canvas)
 #entrada1.focus_Set()
 fondojuego.pack()
+muestraplayer1.pack()
 #fondotextos.pack()
 
 
