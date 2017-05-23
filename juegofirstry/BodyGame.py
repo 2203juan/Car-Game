@@ -321,10 +321,10 @@ def colisionesbor():
     y1=fondojuego.coords(x)[1]
    
 
-    if(x1<=90):
+    if(x1<=85):
         coli=fondojuego.create_image(x1,y1,image=explosion)
         return True
-    if(x1>=335):
+    if(x1>=350):
         coli=fondojuego.create_image(x1,y1,image=explosion)
         return True
 
@@ -342,10 +342,10 @@ def colisionesbor2():
    
 
    
-    if(x2<=1010):
+    if(x2<=1005):
         coli=fondojuego.create_image(x2,y2,image=explosion)
         return True
-    if(x2>=1260):
+    if(x2>=1275):
         coli=fondojuego.create_image(x2,y2,image=explosion)
         return True
 
@@ -377,12 +377,12 @@ def colisionescarros():
     y4=fondojuego.coords(h)[1]
     #s=x
    
-    if(x1>=x2 and x1<=x2+40 and y1>=y2 and y1<=y2+81):
+    if(x1>=x2 and x1<=x2+26 and y1>=y2 and y1<=y2+53):
         fondojuego.move(x,5,0)
         if (fondojuego.move(x,5,0)):
             fondojuego.move(x, 0,-5)
 
-    elif(x1+40>=x2 and x1<=x2+40 and y1+40>=y2 and y1<=y2+81):
+    elif(x1+26>=x2 and x1<=x2+26 and y1+26>=y2 and y1<=y2+53):
             if (fondojuego.move(x,-5,0)):
                 fondojuego.move(x, 0,-5)
 
@@ -408,12 +408,12 @@ def colisionescarros2():
     y4=fondojuego.coords(r2)[1]
     #s=x
    
-    if(x1>=x2 and x1<=x2+40 and y1>=y2 and y1<=y2+81):
+    if(x1>=x2 and x1<=x2+26 and y1>=y2 and y1<=y2+53):
         fondojuego.move(u2,5,0)
         if (fondojuego.move(u2,5,0)):
             fondojuego.move(u2, 0,-5)
 
-    elif(x1+40>=x2 and x1<=x2+40 and y1+40>=y2 and y1<=y2+81):
+    elif(x1+26>=x2 and x1<=x2+26 and y1+26>=y2 and y1<=y2+53):
             if (fondojuego.move(u2,-5,0)):
                 fondojuego.move(u2, 0,-5)
 
