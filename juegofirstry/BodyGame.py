@@ -129,14 +129,14 @@ c2=fondojuego.create_image(690,380, image=centro2)#centro estático
 
 
 
-#widgest de carros, obastáculos y enemigos
+#widgest de carros, obastáculos y enemigos jugador 1
 x = fondojuego.create_image(100,600,image=carrov1)
 k = fondojuego.create_image(97,50,image=vancar)
 h=fondojuego.create_image(150,55, image=photo)
 f=fondojuego.create_image(250, 55, image=fighter)
+#widgest de carros, obastáculos y enemigos jugador 2
 van2=fondojuego.create_image(1220,50,image=minivan2)
 u2=fondojuego.create_image(1250,600, image= user2)
-
 f2=fondojuego.create_image(1250, 55, image=fi2)
 r2=fondojuego.create_image(1100,55, image=run2)
 ga=fondojuego.create_image(200,55, image=chargegas)
@@ -231,7 +231,7 @@ def charge(s):
     """
     global fondojuego, m
 
-    x=random.randint(0,50)
+    x=random.randint(0,100)
   
     
     fondojuego.move(ga, 0, s)
@@ -239,7 +239,7 @@ def charge(s):
     if(fondojuego.coords(ga)[1]>700):
         fondojuego.move(ga,x,-700)
 
-    if(fondojuego.coords(ga)[0]>=1220):
+    if(fondojuego.coords(ga)[0]>=300):
         fondojuego.move(ga,-203,0)
 
 
@@ -355,7 +355,7 @@ def colisionesbor2():
     
   
 
-
+ii=0
     
 def colisionescarros():
     global x
@@ -364,7 +364,8 @@ def colisionescarros():
 
     '''
   
-    
+
+
 
     x1=fondojuego.coords(x)[0]
     x2=fondojuego.coords(f)[0]
@@ -375,62 +376,55 @@ def colisionescarros():
     y3=fondojuego.coords(k)[1]
     y4=fondojuego.coords(h)[1]
     #s=x
+   
     if(x1>=x2 and x1<=x2+40 and y1>=y2 and y1<=y2+81):
-        fondojuego.delete(x)
-        
+        fondojuego.move(x,5,0)
+        if (fondojuego.move(x,5,0)):
+            fondojuego.move(x, 0,-5)
+
+    elif(x1+40>=x2 and x1<=x2+40 and y1+40>=y2 and y1<=y2+81):
+            if (fondojuego.move(x,-5,0)):
+                fondojuego.move(x, 0,-5)
 
 
-        """
-           x=fondojuego.create_image(fondojuego.coords(x)[0],fondojuego.coords(x)[1],image=usuariouno45)
-           
-           
-           fondojuego.delete(s)
 
-           s=x
-           
-        
-           
-           x=fondojuego.create_image(fondojuego.coords(x)[0],fondojuego.coords(x)[1],image=carrov1)
-           
-           
-           fondojuego.delete(x)
-           x=s
-           
-          """
+
+def colisionescarros2():
+    global x
+    '''
+    Esta función se encarga de hacer el efecto de choque entre el carro del jugador y los enemigos
+
+    '''
+  
     
-    if(x1+40>=x2 and x1<=x2+40 and y1+40>=y2 and y1<=y2+81):
-        fondojuego.delete(x)
 
-        
-        """
-           x=fondojuego.create_image(fondojuego.coords(x)[0],fondojuego.coords(x)[1],image=usuariouno45)
-           
-           
-           fondojuego.delete(s)
+    x1=fondojuego.coords(u2)[0]
+    x2=fondojuego.coords(f2)[0]
+    x3=fondojuego.coords(van2)[0]
+    x4=fondojuego.coords(r2)[0]
+    y1=fondojuego.coords(u2)[1]
+    y2=fondojuego.coords(f2)[1]
+    y3=fondojuego.coords(van2)[1]
+    y4=fondojuego.coords(r2)[1]
+    #s=x
+   
+    if(x1>=x2 and x1<=x2+40 and y1>=y2 and y1<=y2+81):
+        fondojuego.move(u2,5,0)
+        if (fondojuego.move(u2,5,0)):
+            fondojuego.move(u2, 0,-5)
 
-           s=x
-           
-        
-           
-           x=fondojuego.create_image(fondojuego.coords(x)[0],fondojuego.coords(x)[1],image=carrov1)
-           
-           
-           fondojuego.delete(x)
-           x=s
-           
-           
-           
-           "'
-           coli=fondojuego.create_image(x1,y1,image=usuariouno45)
-           time.sleep(0.5)
-           delete(coli)
+    elif(x1+40>=x2 and x1<=x2+40 and y1+40>=y2 and y1<=y2+81):
+            if (fondojuego.move(u2,-5,0)):
+                fondojuego.move(u2, 0,-5)
 
-           return True
+              
 
-            ""
+          
+           
+
 
     
-"""
+
 
 def fondomoving(fondoizquierda,velocidad):
     """
@@ -479,7 +473,7 @@ F=0
 
 imagenizquierda=mari
 imagenderecha=mard
-velocity=10
+velocity=0
 
 
 #llamado de funciones
@@ -506,7 +500,7 @@ def principal():
         fondomoving(imagenizquierda,velocity)
         
         charge(v1)
-        #colisionescarros() 
+        colisionescarros() 
 
         key()
         
@@ -528,6 +522,7 @@ def principal2():
             Runner2()
             fondomoving2(imagenderecha,velocity)
             #charge(v1)
+            colisionescarros2() 
             key2()
             v.after(15, principal2)
 
@@ -552,6 +547,7 @@ def lvl1():
     v1=2
     v2=3
     F=1
+    velocity=10
 
 
     principal()
