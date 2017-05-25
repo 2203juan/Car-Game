@@ -2,6 +2,16 @@ import tkinter
 import time
 import random
 import math
+import pygame
+from pygame.locals import * #solo para la música
+
+pygame.mixer.init()
+
+musicaMenu = pygame.mixer.Sound("menu.wav")
+sonidoacelerar=pygame.mixer.Sound("acelerate.wav")
+musicaMenu.play()
+
+
 # Crea la ventana que tendrá el mapa la asocia a la variable v
 ventana = tkinter.Tk()
 ventana.title("Road Fighter")
@@ -378,9 +388,11 @@ def colisionescarros():
     #s=x
    
     if(x1>=x2 and x1<=x2+26 and y1>=y2 and y1<=y2+53):
+
         fondojuego.move(x,5,0)
         if (fondojuego.move(x,5,0)):
             fondojuego.move(x, 0,-5)
+
 
     elif(x1+26>=x2 and x1<=x2+26 and y1+26>=y2 and y1<=y2+53):
             if (fondojuego.move(x,-5,0)):
@@ -536,6 +548,9 @@ def lvl1():
 
     """
     global v1,v2,F,po, imagenizquierda, velocity
+    musicaMenu.stop()
+    sonidoacelerar.play()
+    
     fondojuego.delete(tierrizq)
     fondojuego.delete(tierrder)
     fondojuego.delete(c2)
