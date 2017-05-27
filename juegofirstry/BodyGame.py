@@ -1,3 +1,11 @@
+#----------------------------------------------------ROAD FIGHTER-----------------------------------------------------------#
+#----------------------------------ELABORADO POR JUA JOSÉ HOYOS URCUE---------------------------------#
+#----------------------------------PONTIFICIA UNIVERSIDAD JAVERIANA CALI---------------------------------#
+#----------------------------------INGENIERÍA DE SISTEMAS Y COMPUTACIÓN---------------------------------#
+#---------------------------------------------------------2017-1---------------------------------------------------------------------#
+
+
+
 import tkinter
 import time
 import random
@@ -11,15 +19,20 @@ musicaMenu = pygame.mixer.Sound("menu.wav")
 sonidoacelerar=pygame.mixer.Sound("acelerate.wav")
 musicaMenu.play()
 
-
-# Crea la ventana que tendrá el mapa la asocia a la variable v
+# Crea la ventana que tendrá el menú asociado a la variable ventana
 ventana = tkinter.Tk()
 ventana.title("Road Fighter")
 ventana.geometry("1500x900")
 v = tkinter.Toplevel()
 v.geometry("1500x900")
 imagen1 = tkinter.PhotoImage(file="fondoprincipal.png")
-fondo = tkinter.Label(ventana, image=imagen1).place(x=0 ,y=0)
+fondomenu = tkinter.Label(ventana, image=imagen1).place(x=0 ,y=0)
+
+
+
+#Boton de instrucciones del juego
+
+instructions=tkinter.Button(ventana,text="¿Cómo jugar?").place(x=20, y= 500 )
 
 
 
@@ -58,18 +71,26 @@ centro4=tkinter.PhotoImage(file="centerrojo.png")
 
 
 
-#entradas nameplayers
-
+#Entradas para ingresar y mostrar los nombres de los jugadores
+#1
 nombre=tkinter.StringVar ()
 nombre.set("")
-nombre.set("Escribe tu nombre")
-
-
-
-instruccion_nombre= tkinter.Label(ventana,text="Nombre del jugador 1", font=("Tempus Sans ITC",12),fg="black").place(x=20, y=395)
-nombrecaja = tkinter.Entry(ventana, textvariable=nombre).place(x=180, y = 395)
-
+instruccion_nombre1= tkinter.Label(ventana,text="Nombre del jugador 1", font=("Tempus Sans ITC",12),fg="black").place(x=20, y=395)
+nombrecaja = tkinter.Entry(ventana,font=("Tempus Sans ITC",12), textvariable=nombre).place(x=180, y = 395)
 muestraplayer1= tkinter.Label(v,textvariable=nombre, font=("Tempus Sans ITC",12),fg="black")
+
+#2
+nombre2=tkinter.StringVar()
+nombre2.set("")
+instruccion_nombre2= tkinter.Label(ventana,text="Nombre del jugador 2", font=("Tempus Sans ITC",12)).place(x=20, y=445)
+nombrecaja2 = tkinter.Entry(ventana,font=("Tempus Sans ITC",12) ,textvariable=nombre2).place(x=180, y = 445)
+muestraplayer2= tkinter.Label(v,textvariable=nombre2, font=("Tempus Sans ITC",12),fg="black")
+
+
+
+
+
+
 #photopo=tkinter.PhotoImage(file="Tryfont3m.png")
 carrov1 = tkinter.PhotoImage(file="UserCare.png")#carro verde
 carrov2 = tkinter. PhotoImage(file="UserCare.png")#carro verde
@@ -592,7 +613,8 @@ def lvl1():
 
     #fondojuego.lower(c1)
 
-    labeljugador1=tkinter.Label(v,text=nombre.get(), font=("Tempus Sans ITC",20),fg="black",bg="white").place(x=560, y=325)
+    labeljugador1=tkinter.Label(v,text=nombre.get(), font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=560, y=325)
+    labeljugador2=tkinter.Label(v,text=nombre2.get(), font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=760, y=325)
     fondojuego.focus_set()
     
     
@@ -620,7 +642,8 @@ def lvl2():
     fondojuego.delete(c1)
     fondojuego.delete(c3)
     fondojuego.delete(c4)
-    labeljugador1=tkinter.Label(v,text=nombre.get(), font=("Tempus Sans ITC",20),fg="black",bg="white").place(x=540, y=339)
+    labeljugador1=tkinter.Label(v,text=nombre.get(), font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=540, y=339)
+    labeljugador2=tkinter.Label(v,text=nombre2.get(), font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=740, y=339)
     fondojuego.focus_set()
     v.deiconify()
     ventana.iconify()
@@ -646,6 +669,7 @@ def lvl3():
     fondojuego.delete(c1)
     fondojuego.delete(c4)
     labeljugador1=tkinter.Label(v,text=nombre.get(), font=("Tempus Sans ITC",20),fg="black",bg="white").place(x=545, y=329)
+    labeljugador2=tkinter.Label(v,text=nombre2.get(), font=("Tempus Sans ITC",20),fg="black",bg="white").place(x=745, y=329)
     fondojuego.focus_set()
     v.deiconify()
     ventana.iconify()
@@ -665,6 +689,7 @@ def lvl4():
 
 
  labeljugador1=tkinter.Label(v,text=nombre.get(), font=("Tempus Sans ITC",20),fg="black",bg="white").place(x=540, y=339)
+ labeljugador2=tkinter.Label(v,text=nombre2.get(), font=("Tempus Sans ITC",20),fg="black",bg="white").place(x=740, y=339)
  fondojuego.focus_set()
  v.deiconify()
  ventana.iconify()
@@ -681,6 +706,8 @@ boton5=tkinter.Button(ventana, image=imagen_5boton,command=lvl4).place(x=1200, y
 def lvl5():
  global v1,v2,F,imagenizquierda, velocity, imagenderecha
  labeljugador1=tkinter.Label(v,text=nombre.get(), font=("Tempus Sans ITC",20),fg="black",bg="white").place(x=540, y=339)
+ labeljugador2=tkinter.Label(v,text=nombre2.get(), font=("Tempus Sans ITC",20),fg="black",bg="white").place(x=740, y=339)
+ 
  fondojuego.focus_set()
  v.deiconify()
  ventana.iconify()
