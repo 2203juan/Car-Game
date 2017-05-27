@@ -44,6 +44,18 @@ fondotierraizq=tkinter.PhotoImage(file="tierraizq.png")
 fondotierrader=tkinter.PhotoImage(file="tierrader.png")
 centro2=tkinter.PhotoImage(file="centertierra.png")
 
+#fondos tercer nivel
+
+moradoizq=tkinter.PhotoImage(file="fondo3izq.png")
+moradoder=tkinter.PhotoImage(file="fondo3der.png")
+centro3=tkinter.PhotoImage(file="centermora.png")
+
+#fondos cuarto nivel
+
+rojoizq=tkinter.PhotoImage(file="rojoizq.png")
+rojoder=tkinter.PhotoImage(file="rojoder.png")
+centro4=tkinter.PhotoImage(file="centerrojo.png")
+
 
 
 #entradas nameplayers
@@ -130,7 +142,17 @@ tierrizq=fondojuego.create_image(230,55, image=fondotierraizq)
 tierrder=fondojuego.create_image(1145,55,image=fondotierrader)
 c2=fondojuego.create_image(690,380, image=centro2)#centro estático
 
+#widgest del fondo nivel 3
 
+moraizq=fondojuego.create_image(230,55, image=moradoizq)
+morader=fondojuego.create_image(1145,55, image=moradoder)
+c3=fondojuego.create_image(690,380,image=centro3)
+
+#widgest del fondo nivel 4
+
+roizq=fondojuego.create_image(230,55, image=rojoizq)
+roder=fondojuego.create_image(1140,55, image=rojoder)
+c4=fondojuego.create_image(690, 380, image= centro4)
 
 
 
@@ -550,10 +572,15 @@ def lvl1():
     global v1,v2,F,po, imagenizquierda, velocity
     musicaMenu.stop()
     sonidoacelerar.play()
-    
+    fondojuego.delete(moraizq)
+    fondojuego.delete(morader)
     fondojuego.delete(tierrizq)
     fondojuego.delete(tierrder)
+    fondojuego.delete(roizq)
+    fondojuego.delete(roder)
     fondojuego.delete(c2)
+    fondojuego.delete(c3)
+    fondojuego.delete(c4)
     fondojuego.focus_set()
     
     
@@ -573,7 +600,14 @@ boton2=tkinter.Button(ventana, image=imagen_2boton,command=lvl1).place(x=1200, y
 
 def lvl2():
     global v1,v2,F, imagenizquierda, velocity, imagenderecha
+
+    fondojuego.delete(moraizq)
+    fondojuego.delete(morader)
+    fondojuego.delete(roizq)
+    fondojuego.delete(roder)
     fondojuego.delete(c1)
+    fondojuego.delete(c3)
+    fondojuego.delete(c4)
     fondojuego.focus_set()
     v.deiconify()
     ventana.iconify()
@@ -589,31 +623,48 @@ v.iconify()
 boton3=tkinter.Button(ventana, image=imagen_3boton,command=lvl2).place(x=1200, y=350)
 
 def lvl3():
-    global v1,v2,F
+    global v1,v2,F,imagenizquierda, velocity, imagenderecha
+
+    fondojuego.delete(tierrizq)
+    fondojuego.delete(tierrder)
+    fondojuego.delete(roizq)
+    fondojuego.delete(roder)
+    fondojuego.delete(c2)
+    fondojuego.delete(c1)
+    fondojuego.delete(c4)
     fondojuego.focus_set()
     v.deiconify()
     ventana.iconify()
     v1=5
     v2=7
     F=2
+    imagenizquierda=moraizq
+    imagenderecha=morader
+    velocity=15
     principal()
+    principal2()
 v.iconify()
 boton4=tkinter.Button(ventana, image=imagen_4boton,command=lvl3).place(x=1200, y=400)
 
 def lvl4():
- global v1,v2,F
+ global v1,v2,F,imagenizquierda, velocity, imagenderecha
+ 
+
  fondojuego.focus_set()
  v.deiconify()
  ventana.iconify()
  v1=6
  v2=8
  F=5
+ imagenizquierda=roizq
+ imagenderecha=roder
  principal()
+ principal2()
 v.iconify()
 boton5=tkinter.Button(ventana, image=imagen_5boton,command=lvl4).place(x=1200, y=450)
 
 def lvl5():
- global v1,v2,F
+ global v1,v2,F,imagenizquierda, velocity, imagenderecha
  fondojuego.focus_set()
  v.deiconify()
  ventana.iconify()
