@@ -15,9 +15,9 @@ musicaMenu.play()
 # Crea la ventana que tendrá el mapa la asocia a la variable v
 ventana = tkinter.Tk()
 ventana.title("Road Fighter")
-ventana.geometry("1890x1000")
+ventana.geometry("1500x900")
 v = tkinter.Toplevel()
-v.geometry("1890x1000")
+v.geometry("1500x900")
 imagen1 = tkinter.PhotoImage(file="fondoprincipal.png")
 fondo = tkinter.Label(ventana, image=imagen1).place(x=0 ,y=0)
 
@@ -59,10 +59,17 @@ centro4=tkinter.PhotoImage(file="centerrojo.png")
 
 
 #entradas nameplayers
-nombre= tkinter.Label(ventana,text="Nombre del jugador 1", font=("Tempus Sans ITC",12),fg="black").place(x=20, y=395)
-entrada1 = tkinter.Entry(ventana,font=("Tempus Sans ITC",12)).place(x=180, y = 395)
 
-muestraplayer1= tkinter.Label(v,textvariable=var, font=("Tempus Sans ITC",12),fg="black")
+nombre=tkinter.StringVar ()
+nombre.set("")
+nombre.set("Escribe tu nombre")
+
+
+
+instruccion_nombre= tkinter.Label(ventana,text="Nombre del jugador 1", font=("Tempus Sans ITC",12),fg="black").place(x=20, y=395)
+nombrecaja = tkinter.Entry(ventana, textvariable=nombre).place(x=180, y = 395)
+
+muestraplayer1= tkinter.Label(v,textvariable=nombre, font=("Tempus Sans ITC",12),fg="black")
 #photopo=tkinter.PhotoImage(file="Tryfont3m.png")
 carrov1 = tkinter.PhotoImage(file="UserCare.png")#carro verde
 carrov2 = tkinter. PhotoImage(file="UserCare.png")#carro verde
@@ -73,7 +80,7 @@ fighter=tkinter.PhotoImage(file="YellowCare.png")
 usuariouno45= tkinter.PhotoImage(file="jugador145.png")
 
 user2=tkinter.PhotoImage(file="usercar2e.png")
-entrada1 =tkinter.StringVar()
+
 
 
 minivan2=tkinter.PhotoImage(file="RedCare.png")
@@ -136,6 +143,7 @@ fondojuego=tkinter.Canvas(v, width=1350, height=700,bd=0,highlightthickness=0)
 mard=fondojuego.create_image(1145,55, image=fondomarder)
 mari=fondojuego.create_image(230,55, image=fondomarizq)
 c1=fondojuego.create_image(695,380, image=centro1)#centro estático
+
 
 # widgest del fondo nivel 2
 tierrizq=fondojuego.create_image(230,55, image=fondotierraizq)
@@ -512,7 +520,7 @@ velocity=0
 
 #llamado de funciones
 def principal():
-    global entrad1, imagenizquierda, velocity
+    global  imagenizquierda, velocity
 
 
     """
@@ -569,7 +577,7 @@ def lvl1():
     en caso de que el jugador pierda la partida
 
     """
-    global v1,v2,F,po, imagenizquierda, velocity
+    global v1,v2,F,po, imagenizquierda, velocity, nombre, nombrecaja
     musicaMenu.stop()
     sonidoacelerar.play()
     fondojuego.delete(moraizq)
@@ -581,6 +589,10 @@ def lvl1():
     fondojuego.delete(c2)
     fondojuego.delete(c3)
     fondojuego.delete(c4)
+
+    #fondojuego.lower(c1)
+
+    labeljugador1=tkinter.Label(v,text=nombre.get(), font=("Tempus Sans ITC",20),fg="black",bg="white").place(x=560, y=325)
     fondojuego.focus_set()
     
     
@@ -608,6 +620,7 @@ def lvl2():
     fondojuego.delete(c1)
     fondojuego.delete(c3)
     fondojuego.delete(c4)
+    labeljugador1=tkinter.Label(v,text=nombre.get(), font=("Tempus Sans ITC",20),fg="black",bg="white").place(x=540, y=339)
     fondojuego.focus_set()
     v.deiconify()
     ventana.iconify()
@@ -632,6 +645,7 @@ def lvl3():
     fondojuego.delete(c2)
     fondojuego.delete(c1)
     fondojuego.delete(c4)
+    labeljugador1=tkinter.Label(v,text=nombre.get(), font=("Tempus Sans ITC",20),fg="black",bg="white").place(x=545, y=329)
     fondojuego.focus_set()
     v.deiconify()
     ventana.iconify()
@@ -648,8 +662,9 @@ boton4=tkinter.Button(ventana, image=imagen_4boton,command=lvl3).place(x=1200, y
 
 def lvl4():
  global v1,v2,F,imagenizquierda, velocity, imagenderecha
- 
 
+
+ labeljugador1=tkinter.Label(v,text=nombre.get(), font=("Tempus Sans ITC",20),fg="black",bg="white").place(x=540, y=339)
  fondojuego.focus_set()
  v.deiconify()
  ventana.iconify()
@@ -665,6 +680,7 @@ boton5=tkinter.Button(ventana, image=imagen_5boton,command=lvl4).place(x=1200, y
 
 def lvl5():
  global v1,v2,F,imagenizquierda, velocity, imagenderecha
+ labeljugador1=tkinter.Label(v,text=nombre.get(), font=("Tempus Sans ITC",20),fg="black",bg="white").place(x=540, y=339)
  fondojuego.focus_set()
  v.deiconify()
  ventana.iconify()
@@ -689,7 +705,7 @@ fondojuego.bind("<KeyRelease>",keyup)
 #enpaquetado( mostrar lo hecho con canvas)
 #entrada1.focus_Set()
 fondojuego.pack()
-muestraplayer1.pack()
+#muestraplayer1.pack()
 #fondotextos.pack()
 
 
