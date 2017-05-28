@@ -220,15 +220,9 @@ ga=fondojuego.create_image(200,55, image=chargegas)
 
 
 
-contador1=60
 
-def tiempo():
-    global  contador1
 
-    if contador1>=0:
 
-        contador1=contador1-1
-        tiempo()
 
 
 
@@ -621,14 +615,18 @@ v2=0
 v3=0
 F=0
 
+
+contador1=60
 imagenizquierda=mari
 imagenderecha=mard
 velocity=0
 
+tiempojugador1=tkinter.StringVar()
+
 
 #llamado de funciones
 def principal():
-    global  imagenizquierda, velocity,tiempo1
+    global  imagenizquierda, velocity,tiempo1, contador1, tiempojugador1
 
 
     """
@@ -651,7 +649,14 @@ def principal():
         
         charge(4)
         colisionescarros()
-        tiempo()
+
+        if contador1>0:
+
+            contador1=contador1-0.015
+
+            tiempojugador1.set(round(contador1))
+
+
 
         #tiempodejuego()
 
@@ -688,7 +693,7 @@ def lvl1():
     en caso de que el jugador pierda la partida
 
     """
-    global v1,v2,F,po, imagenizquierda, velocity, nombre, nombrecaja,tiempo1
+    global v1,v2,F,po, imagenizquierda, velocity, nombre, nombrecaja,tiempo1, tiempojugador1, contador1
     #musicaMenu.stop()
     #sonidoacelerar.play()
     fondojuego.delete(moraizq)
@@ -713,7 +718,7 @@ def lvl1():
 
     labeljugador1=tkinter.Label(v,text=nombre.get(), font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=560, y=325)
     labeljugador2=tkinter.Label(v,text=nombre2.get(), font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=760, y=325)
-    labeltiempo=tkinter.Label(v,text=str(contador1), font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=560, y=550)
+    labeltiempo=tkinter.Label(v,textvariable=tiempojugador1, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=560, y=550)
     fondojuego.focus_set()
     
     
@@ -727,6 +732,12 @@ def lvl1():
 
     principal()
     principal2()
+
+    
+
+
+    
+
 
 v.iconify()
 boton2=tkinter.Button(ventana, image=imagen_2boton,command=lvl1).place(x=1200, y=300)
@@ -754,6 +765,7 @@ def lvl2():
     velocity=13
     principal()
     principal2()
+
 v.iconify()
 boton3=tkinter.Button(ventana, image=imagen_3boton,command=lvl2).place(x=1200, y=350)
 
