@@ -30,6 +30,8 @@ fondomenu = tkinter.Label(ventana, image=imagen1).place(x=0 ,y=0)
 
 
 
+
+
 #Boton de instrucciones del juego
 
 instructions=tkinter.Button(ventana,text="¿Cómo jugar?").place(x=20, y= 500 )
@@ -437,7 +439,7 @@ def colisionesbor2():
 ii=0
     
 def colisionescarros():
-    global x
+    global x,contadorg1
     '''
     Esta función se encarga de hacer el efecto de choque entre el carro del jugador y los enemigos
 
@@ -460,6 +462,7 @@ def colisionescarros():
     if(x1>=x2 and x1<=x2+26 and y1>=y2 and y1<=y2+53):
 
         fondojuego.move(x,5,0)
+        contadorg1=contadorg1-250
         if (fondojuego.move(x,5,0)):
             fondojuego.move(x, 0,-5)
 
@@ -474,6 +477,7 @@ def colisionescarros():
     if(x1>=x3 and x1<=x3+26 and y1>=y3 and y1<=y3+53):
 
         fondojuego.move(x,5,0)
+        contadorg1=contadorg1-250
         if (fondojuego.move(x,5,0)):
             fondojuego.move(x, 0,-5)
 
@@ -488,6 +492,7 @@ def colisionescarros():
     if(x1>=x4 and x1<=x4+26 and y1>=y4 and y1<=y4+53):
 
         fondojuego.move(x,5,0)
+        contadorg1=contadorg1-250
         if (fondojuego.move(x,5,0)):
             fondojuego.move(x, 0,-5)
 
@@ -502,7 +507,7 @@ def colisionescarros():
 
 
 def colisionescarros2():
-    global x
+    global x,contadorg2
     '''
     Esta función se encarga de hacer el efecto de choque entre el carro del jugador y los enemigos
 
@@ -524,6 +529,7 @@ def colisionescarros2():
    
     if(x1>=x2 and x1<=x2+26 and y1>=y2 and y1<=y2+53):
         fondojuego.move(u2,5,0)
+        contadorg2=contadorg2-250
         if (fondojuego.move(u2,5,0)):
             fondojuego.move(u2, 0,-5)
 
@@ -536,6 +542,7 @@ def colisionescarros2():
 
     if(x1>=x3 and x1<=x3+26 and y1>=y3 and y1<=y3+53):
         fondojuego.move(u2,5,0)
+        contadorg2=contadorg2-250
         if (fondojuego.move(u2,5,0)):
             fondojuego.move(u2, 0,-5)
 
@@ -547,6 +554,7 @@ def colisionescarros2():
 
     if(x1>=x4 and x1<=x4+26 and y1>=y4 and y1<=y4+53):
         fondojuego.move(u2,5,0)
+        contadorg2=contadorg2-250
         if (fondojuego.move(u2,5,0)):
             fondojuego.move(u2, 0,-5)
 
@@ -609,24 +617,33 @@ def fondomoving2(fondoderecha,velocidad):
     
     
   
+#################
+v1=0                             #
+v2=0                               #
+v3=0                                  #
+F=0                                       #
+                                                # Parámetros de inicialización
 
-v1=0
-v2=0
-v3=0
-F=0
+imagenizquierda=mari        # 
+imagenderecha=mard      #
+velocity=0                       #
+#################
 
-
+#tiempo del jugador 1
 contador1=60
-imagenizquierda=mari
-imagenderecha=mard
-velocity=0
-
 tiempojugador1=tkinter.StringVar()
+
+#Gasolina del jugador 1
+
+contadorg1=5000
+gasolinajugador1=tkinter.StringVar()
+
+
 
 
 #llamado de funciones
 def principal():
-    global  imagenizquierda, velocity,tiempo1, contador1, tiempojugador1
+    global  imagenizquierda, velocity,tiempo1, contador1, tiempojugador1,contadorg1
 
 
     """
@@ -634,7 +651,7 @@ def principal():
     pueda iniciar el juego en el respectivo nivel
     
     """
-    if colisionesbor():
+    if colisionesbor() or  contadorg1<=0:
         return 0
     
     
@@ -656,6 +673,12 @@ def principal():
 
             tiempojugador1.set(round(contador1))
 
+        if contadorg1>0:
+
+            contadorg1=contadorg1-1
+
+            gasolinajugador1.set(round(contadorg1))
+
 
 
         #tiempodejuego()
@@ -666,11 +689,19 @@ def principal():
         #print(var.set())
         v.after(15,principal)
 
+# tiempo de jugador 2
+contador2=60
+tiempojugador2=tkinter.StringVar()
 
+
+#Gasolina del jugador 2
+
+contadorg2=5000
+gasolinajugador2=tkinter.StringVar()
 def principal2():
-    global imagenderecha, velocity
+    global imagenderecha, velocity, contador2, tiempojugador2,contadorg2
 
-    if  colisionesbor2():
+    if  colisionesbor2() or  contadorg2<=0:
         return 0
            
 
@@ -680,9 +711,20 @@ def principal2():
             Runner2()
             fondomoving2(imagenderecha,velocity)
             #charge(v1)
-            colisionescarros2() 
-            key2()
-            v.after(15, principal2)
+            colisionescarros2()
+            if contador2>0:
+
+                contador2=contador2-0.015            
+
+                tiempojugador2.set(round(contador2))
+
+            if contadorg2>0:
+
+                contadorg2=contadorg2-1
+
+                gasolinajugador2.set(round(contadorg2))
+                key2()
+                v.after(15, principal2)
 
         
 #RunnerCar()
@@ -707,18 +749,15 @@ def lvl1():
     fondojuego.delete(c4)
 
 
-    
-
-
-
-
-    
 
     #fondojuego.lower(c1)
 
     labeljugador1=tkinter.Label(v,text=nombre.get(), font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=560, y=325)
     labeljugador2=tkinter.Label(v,text=nombre2.get(), font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=760, y=325)
-    labeltiempo=tkinter.Label(v,textvariable=tiempojugador1, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=560, y=550)
+    labeltiempo1=tkinter.Label(v,textvariable=tiempojugador1, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=570, y=550)
+    labeltiempo2=tkinter.Label(v,textvariable=tiempojugador2, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=765, y=550)
+    labelgasolina1=tkinter.Label(v,textvariable=gasolinajugador1, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=570, y=450)
+    labelgasolina2=tkinter.Label(v,textvariable=gasolinajugador2, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=770, y=450) 
     fondojuego.focus_set()
     
     
@@ -743,7 +782,9 @@ v.iconify()
 boton2=tkinter.Button(ventana, image=imagen_2boton,command=lvl1).place(x=1200, y=300)
 
 def lvl2():
-    global v1,v2,F, imagenizquierda, velocity, imagenderecha
+    global v1,v2,F, imagenizquierda, velocity, imagenderecha, tiempojugador1, contador1
+
+
 
     fondojuego.delete(moraizq)
     fondojuego.delete(morader)
@@ -754,6 +795,12 @@ def lvl2():
     fondojuego.delete(c4)
     labeljugador1=tkinter.Label(v,text=nombre.get(), font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=540, y=339)
     labeljugador2=tkinter.Label(v,text=nombre2.get(), font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=740, y=339)
+    labeltiempo1=tkinter.Label(v,textvariable=tiempojugador1, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=570, y=560)
+    labeltiempo2=tkinter.Label(v,textvariable=tiempojugador2, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=765, y=560)
+    labelgasolina1=tkinter.Label(v,textvariable=gasolinajugador1, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=560, y=480)
+    labelgasolina2=tkinter.Label(v,textvariable=gasolinajugador2, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=760, y=480) 
+    
+
     fondojuego.focus_set()
     v.deiconify()
     ventana.iconify()
@@ -770,7 +817,7 @@ v.iconify()
 boton3=tkinter.Button(ventana, image=imagen_3boton,command=lvl2).place(x=1200, y=350)
 
 def lvl3():
-    global v1,v2,F,imagenizquierda, velocity, imagenderecha
+    global v1,v2,F,imagenizquierda, velocity, imagenderecha, tiempojugador1, contador1
 
     fondojuego.delete(tierrizq)
     fondojuego.delete(tierrder)
@@ -781,6 +828,10 @@ def lvl3():
     fondojuego.delete(c4)
     labeljugador1=tkinter.Label(v,text=nombre.get(), font=("Tempus Sans ITC",20),fg="black",bg="white").place(x=545, y=329)
     labeljugador2=tkinter.Label(v,text=nombre2.get(), font=("Tempus Sans ITC",20),fg="black",bg="white").place(x=745, y=329)
+    labeltiempo1=tkinter.Label(v,textvariable=tiempojugador1, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=570, y=550)
+    labeltiempo2=tkinter.Label(v,textvariable=tiempojugador2, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=765, y=550)
+    labelgasolina1=tkinter.Label(v,textvariable=gasolinajugador1, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=560, y=480)
+    labelgasolina2=tkinter.Label(v,textvariable=gasolinajugador2, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=760, y=480) 
     fondojuego.focus_set()
     v.deiconify()
     ventana.iconify()
@@ -796,41 +847,58 @@ v.iconify()
 boton4=tkinter.Button(ventana, image=imagen_4boton,command=lvl3).place(x=1200, y=400)
 
 def lvl4():
- global v1,v2,F,imagenizquierda, velocity, imagenderecha
+     global  v1,v2,F,imagenizquierda, velocity, imagenderecha, tiempojugador1, contador1
 
 
- labeljugador1=tkinter.Label(v,text=nombre.get(), font=("Tempus Sans ITC",20),fg="black",bg="white").place(x=540, y=339)
- labeljugador2=tkinter.Label(v,text=nombre2.get(), font=("Tempus Sans ITC",20),fg="black",bg="white").place(x=740, y=339)
- fondojuego.focus_set()
- v.deiconify()
- ventana.iconify()
- v1=6
- v2=8
- F=5
- imagenizquierda=roizq
- imagenderecha=roder
- principal()
- principal2()
+     labeljugador1=tkinter.Label(v,text=nombre.get(), font=("Tempus Sans ITC",20),fg="black",bg="white").place(x=540, y=339)
+     labeljugador2=tkinter.Label(v,text=nombre2.get(), font=("Tempus Sans ITC",20),fg="black",bg="white").place(x=740, y=339)
+     labeltiempo1=tkinter.Label(v,textvariable=tiempojugador1, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=570, y=580)
+     labeltiempo2=tkinter.Label(v,textvariable=tiempojugador2, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=765, y=580)
+     labelgasolina1=tkinter.Label(v,textvariable=gasolinajugador1, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=560, y=490)
+     labelgasolina2=tkinter.Label(v,textvariable=gasolinajugador2, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=760, y=490) 
+     fondojuego.focus_set()
+     v.deiconify()
+     ventana.iconify()
+     v1=6
+     v2=8
+     F=5
+     velocity=15
+     imagenizquierda=roizq
+     imagenderecha=roder
+     principal()
+     principal2()
 v.iconify()
 boton5=tkinter.Button(ventana, image=imagen_5boton,command=lvl4).place(x=1200, y=450)
 
 def lvl5():
- global v1,v2,F,imagenizquierda, velocity, imagenderecha
- labeljugador1=tkinter.Label(v,text=nombre.get(), font=("Tempus Sans ITC",20),fg="black",bg="white").place(x=540, y=339)
- labeljugador2=tkinter.Label(v,text=nombre2.get(), font=("Tempus Sans ITC",20),fg="black",bg="white").place(x=740, y=339)
- 
- fondojuego.focus_set()
- v.deiconify()
- ventana.iconify()
- v1=10
- v2=10
- F=5
- principal()
+     global v1,v2,F,imagenizquierda, velocity, imagenderecha, tiempojugador1, contador1
+     labeljugador1=tkinter.Label(v,text=nombre.get(), font=("Tempus Sans ITC",20),fg="black",bg="white").place(x=540, y=339)
+     labeljugador2=tkinter.Label(v,text=nombre2.get(), font=("Tempus Sans ITC",20),fg="black",bg="white").place(x=740, y=339)
+     labeltiempo1=tkinter.Label(v,textvariable=tiempojugador1, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=570, y=560)
+     labeltiempo2=tkinter.Label(v,textvariable=tiempojugador2, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=765, y=560)
+     
+     fondojuego.focus_set()
+     v.deiconify()
+     ventana.iconify()
+     v1=10
+     v2=10
+     F=5
+     principal()
 v.iconify()
 boton6=tkinter.Button(ventana, image=imagen_6boton,command=lvl5).place(x=1200, y=500)
 
-boton1 = tkinter.Button(ventana, image=imagen_1boton,command=ventana.destroy).place(x=1200, y=600)
-    
+
+
+def pasar():
+    v.destroy()
+    ventana.destroy()
+    import BodyGame
+
+
+
+#salir
+boton1 = tkinter.Button(v, text="Siguiente",command=pasar).place(x=700, y=600)
+
 
 
 # Liga el evento key al canvas
