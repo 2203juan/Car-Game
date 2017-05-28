@@ -17,7 +17,7 @@ pygame.mixer.init()
 
 musicaMenu = pygame.mixer.Sound("menu.wav")
 sonidoacelerar=pygame.mixer.Sound("acelerate.wav")
-musicaMenu.play()
+#musicaMenu.play()
 
 # Crea la ventana que tendrá el menú asociado a la variable ventana
 ventana = tkinter.Tk()
@@ -137,10 +137,17 @@ m= 0
 i=0
 z=0
 q=0
-g = 0
+g = 0       
 c = 0
 d = 5
 
+
+
+
+
+
+
+        
 
 
 
@@ -210,6 +217,21 @@ ga=fondojuego.create_image(200,55, image=chargegas)
 
 
 #defino las funciones que van a dinamizar mi juego
+
+
+
+contador1=60
+
+def tiempo():
+    global  contador1
+
+    if contador1>=0:
+
+        contador1=contador1-1
+        tiempo()
+
+
+
 
 def MiniVan(s):
     """
@@ -292,16 +314,18 @@ def charge(s):
     """
     global fondojuego, m
 
-    x=random.randint(0,100)
+    x=random.randint(0,50)
   
     
     fondojuego.move(ga, 0, s)
         
     if(fondojuego.coords(ga)[1]>700):
-        fondojuego.move(ga,x,-700)
+        fondojuego.move(ga,x,-3000)
 
     if(fondojuego.coords(ga)[0]>=300):
         fondojuego.move(ga,-203,0)
+
+    
 
 
 #usercar
@@ -436,7 +460,8 @@ def colisionescarros():
     y2=fondojuego.coords(f)[1]
     y3=fondojuego.coords(k)[1]
     y4=fondojuego.coords(h)[1]
-    #s=x
+
+    #con el fighter
    
     if(x1>=x2 and x1<=x2+26 and y1>=y2 and y1<=y2+53):
 
@@ -448,6 +473,36 @@ def colisionescarros():
     elif(x1+26>=x2 and x1<=x2+26 and y1+26>=y2 and y1<=y2+53):
             if (fondojuego.move(x,-5,0)):
                 fondojuego.move(x, 0,-5)
+
+    #con la van
+
+   
+    if(x1>=x3 and x1<=x3+26 and y1>=y3 and y1<=y3+53):
+
+        fondojuego.move(x,5,0)
+        if (fondojuego.move(x,5,0)):
+            fondojuego.move(x, 0,-5)
+
+
+    elif(x1+26>=x3 and x1<=x3+26 and y1+26>=y3 and y1<=y3+53):
+            if (fondojuego.move(x,-5,0)):
+                fondojuego.move(x, 0,-5)
+
+    # con el runner
+
+       
+    if(x1>=x4 and x1<=x4+26 and y1>=y4 and y1<=y4+53):
+
+        fondojuego.move(x,5,0)
+        if (fondojuego.move(x,5,0)):
+            fondojuego.move(x, 0,-5)
+
+
+    elif(x1+26>=x4 and x1<=x4+26 and y1+26>=y4 and y1<=y4+53):
+            if (fondojuego.move(x,-5,0)):
+                fondojuego.move(x, 0,-5)
+
+
 
 
 
@@ -469,7 +524,9 @@ def colisionescarros2():
     y2=fondojuego.coords(f2)[1]
     y3=fondojuego.coords(van2)[1]
     y4=fondojuego.coords(r2)[1]
-    #s=x
+
+
+    # con el fighter
    
     if(x1>=x2 and x1<=x2+26 and y1>=y2 and y1<=y2+53):
         fondojuego.move(u2,5,0)
@@ -479,6 +536,36 @@ def colisionescarros2():
     elif(x1+26>=x2 and x1<=x2+26 and y1+26>=y2 and y1<=y2+53):
             if (fondojuego.move(u2,-5,0)):
                 fondojuego.move(u2, 0,-5)
+                
+    #con la van
+
+
+    if(x1>=x3 and x1<=x3+26 and y1>=y3 and y1<=y3+53):
+        fondojuego.move(u2,5,0)
+        if (fondojuego.move(u2,5,0)):
+            fondojuego.move(u2, 0,-5)
+
+    elif(x1+26>=x3 and x1<=x3+26 and y1+26>=y3 and y1<=y3+53):
+            if (fondojuego.move(u2,-5,0)):
+                fondojuego.move(u2, 0,-5)
+
+    # con el runner
+
+    if(x1>=x4 and x1<=x4+26 and y1>=y4 and y1<=y4+53):
+        fondojuego.move(u2,5,0)
+        if (fondojuego.move(u2,5,0)):
+            fondojuego.move(u2, 0,-5)
+
+    elif(x1+26>=x4 and x1<=x4+26 and y1+26>=y4 and y1<=y4+53):
+            if (fondojuego.move(u2,-5,0)):
+                fondojuego.move(u2, 0,-5)
+
+    
+
+
+
+
+    
 
               
 
@@ -541,7 +628,7 @@ velocity=0
 
 #llamado de funciones
 def principal():
-    global  imagenizquierda, velocity
+    global  imagenizquierda, velocity,tiempo1
 
 
     """
@@ -562,8 +649,11 @@ def principal():
         Runner()
         fondomoving(imagenizquierda,velocity)
         
-        charge(v1)
-        colisionescarros() 
+        charge(4)
+        colisionescarros()
+        tiempo()
+
+        #tiempodejuego()
 
         key()
         
@@ -598,9 +688,9 @@ def lvl1():
     en caso de que el jugador pierda la partida
 
     """
-    global v1,v2,F,po, imagenizquierda, velocity, nombre, nombrecaja
-    musicaMenu.stop()
-    sonidoacelerar.play()
+    global v1,v2,F,po, imagenizquierda, velocity, nombre, nombrecaja,tiempo1
+    #musicaMenu.stop()
+    #sonidoacelerar.play()
     fondojuego.delete(moraizq)
     fondojuego.delete(morader)
     fondojuego.delete(tierrizq)
@@ -611,10 +701,19 @@ def lvl1():
     fondojuego.delete(c3)
     fondojuego.delete(c4)
 
+
+    
+
+
+
+
+    
+
     #fondojuego.lower(c1)
 
     labeljugador1=tkinter.Label(v,text=nombre.get(), font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=560, y=325)
     labeljugador2=tkinter.Label(v,text=nombre2.get(), font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=760, y=325)
+    labeltiempo=tkinter.Label(v,text=str(contador1), font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=560, y=550)
     fondojuego.focus_set()
     
     
