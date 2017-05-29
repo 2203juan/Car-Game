@@ -430,9 +430,14 @@ def colisionesbor2():
         coli=fondojuego.create_image(x2,y2,image=explosion)
         return True
 
-        
+def destruirall():
+    v.destroy()
+    ventana.destroy()
+    #ventana.destroy()
+
     
 
+        
     
   
 
@@ -462,11 +467,13 @@ def colisionescarros():
     if(x1>=x2 and x1<=x2+26 and y1>=y2 and y1<=y2+53):
 
            coli=fondojuego.create_image(x1,y1,image=explosion)
+           boton1 = tkinter.Button(v, text="Adios, si aun tienes las hagllas para jugar, ábreme de nuevo",command=destruirall).place(x=550, y=655)
            contadorg1=0
 
 
     elif(x1+26>=x2 and x1<=x2+26 and y1+26>=y2 and y1<=y2+53):
               coli=fondojuego.create_image(x1,y1,image=explosion)
+              boton1 = tkinter.Button(v, text="Adios, si aun tienes las hagllas para jugar, ábreme de nuevo",command=destruirall).place(x=550, y=655)
               contadorg1=0
 
     #con la van
@@ -487,7 +494,7 @@ def colisionescarros():
     # con el runner
 
        
-    if(x1>=x4 and x1<=x4+26 and y1>=y4 and y1<=y4+53):
+    if(x1>=x4 and x1<=x4+26 and y1>=y4 and y1<=y4+52):
 
         fondojuego.move(x,5,0)
         contadorg1=contadorg1-250
@@ -495,7 +502,7 @@ def colisionescarros():
             fondojuego.move(x, 0,-5)
 
 
-    elif(x1+26>=x4 and x1<=x4+26 and y1+26>=y4 and y1<=y4+53):
+    elif(x1+26>=x4 and x1<=x4+26 and y1+26>=y4 and y1<=y4+52):
             if (fondojuego.move(x,-5,0)):
                 fondojuego.move(x, 0,-5)
 
@@ -525,12 +532,14 @@ def colisionescarros2():
 
     # con el fighter
    
-    if(x1>=x2 and x1<=x2+26 and y1>=y2 and y1<=y2+53):
+    if(x1>=x2 and x1<=x2+26 and y1>=y2 and y1<=y2+52):
            coli=fondojuego.create_image(x1,y1,image=explosion)
+           boton1 = tkinter.Button(v, text="Adios, si aun tienes las hagllas para jugar, ábreme de nuevo",command=destruirall).place(x=550, y=655)
            contadorg2=0
 
-    elif(x1+26>=x2 and x1<=x2+26 and y1+26>=y2 and y1<=y2+53):
+    elif(x1+26>=x2 and x1<=x2+26 and y1+26>=y2 and y1<=y2+52):
            coli=fondojuego.create_image(x1,y1,image=explosion)
+           boton1 = tkinter.Button(v, text="Adios, si aun tienes las hagllas para jugar, ábreme de nuevo",command=destruirall).place(x=550, y=655)
            contadorg2=0
                 
     #con la van
@@ -644,7 +653,7 @@ velocidadjugador1=tkinter.StringVar()
 
 #llamado de funciones
 def principal():
-    global  imagenizquierda, velocity,tiempo1, contador1, tiempojugador1,contadorg1, contadorv1, velocidadjugador1
+    global  imagenizquierda, velocity,tiempo1, contador1, tiempojugador1,contadorg1, contadorv1, velocidadjugador1,contadorg2
 
 
     """
@@ -695,9 +704,14 @@ def principal():
 
             velocidadjugador1.set(round(contadorv1))
 
+    
+
+
+
         #tiempodejuego()
 
         key()
+
         
       
         #print(var.set())
