@@ -15,9 +15,21 @@ from pygame.locals import * #solo para la música
 
 pygame.mixer.init()
 
+
 musicaMenu = pygame.mixer.Sound("menu.wav")
 sonidoacelerar=pygame.mixer.Sound("acelerate.wav")
-#musicaMenu.play()
+sonidofail=pygame.mixer.Sound("loser.wav")
+crash=pygame.mixer.Sound("choque.wav")
+
+
+
+
+
+
+
+
+
+musicaMenu.play()
 
 # Crea la ventana que tendrá el menú asociado a la variable ventana
 ventana = tkinter.Tk()
@@ -441,9 +453,12 @@ def colisionesbor2():
         return True
 
 def destruirall():
+
     v.destroy()
     ventana.destroy()
-    #ventana.destroy()
+
+
+
 
     
 
@@ -475,16 +490,25 @@ def colisionescarros():
     #con el fighter
    
     if(x1>=x2 and x1<=x2+26 and y1>=y2 and y1<=y2+53):
+           #nivel1sound.stop()
+           crash.play()
+           sonidofail.play()
 
            coli=fondojuego.create_image(x1,y1,image=explosion)
-           boton1 = tkinter.Button(v, text="Adios, si aun tienes las hagllas para jugar, ábreme de nuevo",command=destruirall).place(x=550, y=655)
+           boton1 = tkinter.Button(v, text="Salir: si aun tienes las hagllas para jugar, ábreme de nuevo",command=destruirall).place(x=550, y=655)
            contadorg1=0
+        
+           
 
 
     elif(x1+26>=x2 and x1<=x2+26 and y1+26>=y2 and y1<=y2+53):
+              #nivel1sound.stop()
+              crash.play()
+              sonidofail.play()
               coli=fondojuego.create_image(x1,y1,image=explosion)
-              boton1 = tkinter.Button(v, text="Adios, si aun tienes las hagllas para jugar, ábreme de nuevo",command=destruirall).place(x=550, y=655)
+              boton1 = tkinter.Button(v, text="Salir: si aun tienes las hagllas para jugar, ábreme de nuevo",command=destruirall).place(x=550, y=655)
               contadorg1=0
+              
 
     #con la van
 
@@ -543,13 +567,19 @@ def colisionescarros2():
     # con el fighter
    
     if(x1>=x2 and x1<=x2+26 and y1>=y2 and y1<=y2+52):
+
+           crash.play()
+           sonidofail.play()
            coli=fondojuego.create_image(x1,y1,image=explosion)
-           boton1 = tkinter.Button(v, text="Adios, si aun tienes las hagllas para jugar, ábreme de nuevo",command=destruirall).place(x=550, y=655)
+           boton1 = tkinter.Button(v, text="Salir: si aun tienes las hagllas para jugar, ábreme de nuevo",command=destruirall).place(x=550, y=655)
            contadorg2=0
 
     elif(x1+26>=x2 and x1<=x2+26 and y1+26>=y2 and y1<=y2+52):
+
+           crash.play()
+           sonidofail.play()
            coli=fondojuego.create_image(x1,y1,image=explosion)
-           boton1 = tkinter.Button(v, text="Adios, si aun tienes las hagllas para jugar, ábreme de nuevo",command=destruirall).place(x=550, y=655)
+           boton1 = tkinter.Button(v, text="Salir: si aun tienes las hagllas para jugar, ábreme de nuevo",command=destruirall).place(x=550, y=655)
            contadorg2=0
                 
     #con la van
@@ -774,7 +804,7 @@ def principal2():
             else:
                 pass
 
-        
+km="km/h"       
 #RunnerCar()
 def lvl1():
     """
@@ -784,8 +814,10 @@ def lvl1():
 
     """
     global v1,v2,F,po, imagenizquierda, velocity, nombre, nombrecaja,tiempo1, tiempojugador1, contador1
-    #musicaMenu.stop()
-    #sonidoacelerar.play()
+    musicaMenu.stop()
+    pygame.mixer.music.load("nivel1.wav")
+    pygame.mixer.music.play()
+
     fondojuego.delete(moraizq)
     fondojuego.delete(morader)
     fondojuego.delete(tierrizq)
@@ -795,6 +827,9 @@ def lvl1():
     fondojuego.delete(c2)
     fondojuego.delete(c3)
     fondojuego.delete(c4)
+    fondojuego.delete(sizq)
+    fondojuego.delete(sder)
+    fondojuego.delete(c5)
 
 
 
@@ -806,7 +841,7 @@ def lvl1():
     labeltiempo2=tkinter.Label(v,textvariable=tiempojugador2, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=765, y=550)
     labelgasolina1=tkinter.Label(v,textvariable=gasolinajugador1, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=570, y=450)
     labelgasolina2=tkinter.Label(v,textvariable=gasolinajugador2, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=770, y=450)
-    labelvelocidad1=tkinter.Label(v,textvariable=velocidadjugador1, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=770, y=400) 
+    labelvelocidad1=tkinter.Label(v,textvariable=velocidadjugador1, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=580, y=390) 
     fondojuego.focus_set()
     
     
@@ -832,7 +867,10 @@ boton2=tkinter.Button(ventana, image=imagen_2boton,command=lvl1).place(x=1200, y
 
 def lvl2():
     global v1,v2,F, imagenizquierda, velocity, imagenderecha, tiempojugador1, contador1
+    musicaMenu.stop()
 
+    pygame.mixer.music.load("nivel2.wav")#canción del nivel 2
+    pygame.mixer.music.play()#reproduce la canción del nivel2
 
 
     fondojuego.delete(moraizq)
@@ -842,12 +880,16 @@ def lvl2():
     fondojuego.delete(c1)
     fondojuego.delete(c3)
     fondojuego.delete(c4)
+    fondojuego.delete(sizq)
+    fondojuego.delete(sder)
+    fondojuego.delete(c5)
     labeljugador1=tkinter.Label(v,text=nombre.get(), font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=540, y=339)
     labeljugador2=tkinter.Label(v,text=nombre2.get(), font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=740, y=339)
     labeltiempo1=tkinter.Label(v,textvariable=tiempojugador1, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=570, y=560)
     labeltiempo2=tkinter.Label(v,textvariable=tiempojugador2, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=765, y=560)
     labelgasolina1=tkinter.Label(v,textvariable=gasolinajugador1, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=560, y=480)
-    labelgasolina2=tkinter.Label(v,textvariable=gasolinajugador2, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=760, y=480) 
+    labelgasolina2=tkinter.Label(v,textvariable=gasolinajugador2, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=760, y=480)
+    labelvelocidad1=tkinter.Label(v,textvariable=velocidadjugador1, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=560, y=400) 
     
 
     fondojuego.focus_set()
@@ -868,6 +910,10 @@ boton3=tkinter.Button(ventana, image=imagen_3boton,command=lvl2).place(x=1200, y
 def lvl3():
     global v1,v2,F,imagenizquierda, velocity, imagenderecha, tiempojugador1, contador1
 
+    musicaMenu.stop()
+    pygame.mixer.music.load("nivel3.wav")
+    pygame.mixer.music.play()
+
     fondojuego.delete(tierrizq)
     fondojuego.delete(tierrder)
     fondojuego.delete(roizq)
@@ -875,6 +921,9 @@ def lvl3():
     fondojuego.delete(c2)
     fondojuego.delete(c1)
     fondojuego.delete(c4)
+    fondojuego.delete(sizq)
+    fondojuego.delete(sder)
+    fondojuego.delete(c5)
     labeljugador1=tkinter.Label(v,text=nombre.get(), font=("Tempus Sans ITC",20),fg="black",bg="white").place(x=545, y=329)
     labeljugador2=tkinter.Label(v,text=nombre2.get(), font=("Tempus Sans ITC",20),fg="black",bg="white").place(x=745, y=329)
     labeltiempo1=tkinter.Label(v,textvariable=tiempojugador1, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=570, y=550)
@@ -898,7 +947,13 @@ boton4=tkinter.Button(ventana, image=imagen_4boton,command=lvl3).place(x=1200, y
 def lvl4():
      global  v1,v2,F,imagenizquierda, velocity, imagenderecha, tiempojugador1, contador1
 
+     musicaMenu.stop()
+     pygame.mixer.music.load("nivel4.wav")
+     pygame.mixer.music.play()
 
+     fondojuego.delete(sizq)
+     fondojuego.delete(sder)
+     fondojuego.delete(c5)
      labeljugador1=tkinter.Label(v,text=nombre.get(), font=("Tempus Sans ITC",20),fg="black",bg="white").place(x=540, y=339)
      labeljugador2=tkinter.Label(v,text=nombre2.get(), font=("Tempus Sans ITC",20),fg="black",bg="white").place(x=740, y=339)
      labeltiempo1=tkinter.Label(v,textvariable=tiempojugador1, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=570, y=580)
@@ -921,6 +976,10 @@ boton5=tkinter.Button(ventana, image=imagen_5boton,command=lvl4).place(x=1200, y
 
 def lvl5():
      global v1,v2,F,imagenizquierda, velocity, imagenderecha, tiempojugador1, contador1
+     musicaMenu.stop()
+     pygame.mixer.music.load("nivel5.wav")
+     pygame.mixer.music.play()
+     
      labeljugador1=tkinter.Label(v,text=nombre.get(), font=("Tempus Sans ITC",20),fg="black",bg="white").place(x=540, y=339)
      labeljugador2=tkinter.Label(v,text=nombre2.get(), font=("Tempus Sans ITC",20),fg="black",bg="white").place(x=740, y=339)
      labeltiempo1=tkinter.Label(v,textvariable=tiempojugador1, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=570, y=560)
