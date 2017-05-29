@@ -437,7 +437,7 @@ def colisionesbor2():
   
 
 ii=0
-    
+
 def colisionescarros():
     global x,contadorg1
     '''
@@ -461,15 +461,13 @@ def colisionescarros():
    
     if(x1>=x2 and x1<=x2+26 and y1>=y2 and y1<=y2+53):
 
-        fondojuego.move(x,5,0)
-        contadorg1=contadorg1-250
-        if (fondojuego.move(x,5,0)):
-            fondojuego.move(x, 0,-5)
+           coli=fondojuego.create_image(x1,y1,image=explosion)
+           contadorg1=0
 
 
     elif(x1+26>=x2 and x1<=x2+26 and y1+26>=y2 and y1<=y2+53):
-            if (fondojuego.move(x,-5,0)):
-                fondojuego.move(x, 0,-5)
+              coli=fondojuego.create_image(x1,y1,image=explosion)
+              contadorg1=0
 
     #con la van
 
@@ -528,14 +526,12 @@ def colisionescarros2():
     # con el fighter
    
     if(x1>=x2 and x1<=x2+26 and y1>=y2 and y1<=y2+53):
-        fondojuego.move(u2,5,0)
-        contadorg2=contadorg2-250
-        if (fondojuego.move(u2,5,0)):
-            fondojuego.move(u2, 0,-5)
+           coli=fondojuego.create_image(x1,y1,image=explosion)
+           contadorg2=0
 
     elif(x1+26>=x2 and x1<=x2+26 and y1+26>=y2 and y1<=y2+53):
-            if (fondojuego.move(u2,-5,0)):
-                fondojuego.move(u2, 0,-5)
+           coli=fondojuego.create_image(x1,y1,image=explosion)
+           contadorg2=0
                 
     #con la van
 
@@ -629,21 +625,26 @@ imagenderecha=mard      #
 velocity=0                       #
 #################
 
-#tiempo del jugador 1
+#tiempo en etiquetas del jugador 1
 contador1=60
 tiempojugador1=tkinter.StringVar()
 
-#Gasolina del jugador 1
+#Gasolina en etiquetas del jugador 1
 
-contadorg1=5000
+contadorg1=7000
 gasolinajugador1=tkinter.StringVar()
+
+#Velocidad en etiquetas del jugador 1
+
+contadorv1=0
+velocidadjugador1=tkinter.StringVar()
 
 
 
 
 #llamado de funciones
 def principal():
-    global  imagenizquierda, velocity,tiempo1, contador1, tiempojugador1,contadorg1
+    global  imagenizquierda, velocity,tiempo1, contador1, tiempojugador1,contadorg1, contadorv1, velocidadjugador1
 
 
     """
@@ -651,7 +652,14 @@ def principal():
     pueda iniciar el juego en el respectivo nivel
     
     """
-    if colisionesbor() or  contadorg1<=0:
+    if colisionesbor()  :
+        return 0
+
+    if contador1<=0:
+        
+        boton1 = tkinter.Button(v, text="Siguiente Nivel",command=pasar).place(x=650, y=620)
+        return 0
+    elif (contadorg1<=0):
         return 0
     
     
@@ -681,6 +689,12 @@ def principal():
 
 
 
+        if contadorv1<200:
+
+            contadorv1=contadorv1+0.09
+
+            velocidadjugador1.set(round(contadorv1))
+
         #tiempodejuego()
 
         key()
@@ -696,13 +710,21 @@ tiempojugador2=tkinter.StringVar()
 
 #Gasolina del jugador 2
 
-contadorg2=5000
+contadorg2=7000
 gasolinajugador2=tkinter.StringVar()
 def principal2():
     global imagenderecha, velocity, contador2, tiempojugador2,contadorg2
 
-    if  colisionesbor2() or  contadorg2<=0:
+    if  colisionesbor2() :
         return 0
+
+    elif   contadorg2<=0:
+        return 0
+
+    if contador2<=0:
+        boton1 = tkinter.Button(v, text="Siguiente Nivel",command=pasar).place(x=650, y=620)
+        return 0
+        
            
 
     else:
@@ -725,6 +747,8 @@ def principal2():
                 gasolinajugador2.set(round(contadorg2))
                 key2()
                 v.after(15, principal2)
+            else:
+                pass
 
         
 #RunnerCar()
@@ -757,7 +781,8 @@ def lvl1():
     labeltiempo1=tkinter.Label(v,textvariable=tiempojugador1, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=570, y=550)
     labeltiempo2=tkinter.Label(v,textvariable=tiempojugador2, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=765, y=550)
     labelgasolina1=tkinter.Label(v,textvariable=gasolinajugador1, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=570, y=450)
-    labelgasolina2=tkinter.Label(v,textvariable=gasolinajugador2, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=770, y=450) 
+    labelgasolina2=tkinter.Label(v,textvariable=gasolinajugador2, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=770, y=450)
+    labelvelocidad1=tkinter.Label(v,textvariable=velocidadjugador1, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=770, y=400) 
     fondojuego.focus_set()
     
     
@@ -896,8 +921,7 @@ def pasar():
 
 
 
-#salir
-boton1 = tkinter.Button(v, text="Siguiente",command=pasar).place(x=700, y=600)
+
 
 
 
