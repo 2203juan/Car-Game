@@ -71,6 +71,12 @@ rojoizq=tkinter.PhotoImage(file="rojoizq.png")
 rojoder=tkinter.PhotoImage(file="rojoder.png")
 centro4=tkinter.PhotoImage(file="centerrojo.png")
 
+#fondos quinto nivel
+
+spaceizq=tkinter.PhotoImage(file="spaceizq.png")
+spaceder=tkinter.PhotoImage(file="spaceder.png")
+centro5=tkinter.PhotoImage(file="spacecenter.png")
+
 
 
 #Entradas para ingresar y mostrar los nombres de los jugadores
@@ -192,7 +198,11 @@ roizq=fondojuego.create_image(230,55, image=rojoizq)
 roder=fondojuego.create_image(1140,55, image=rojoder)
 c4=fondojuego.create_image(690, 380, image= centro4)
 
+#widgest del fondo nivel 5
 
+sizq=fondojuego.create_image(230,55, image= spaceizq)
+sder=fondojuego.create_image(1145,55, image=spaceizq)
+c5=fondojuego.create_image(690,380,image=centro5)
 
 
 
@@ -922,7 +932,11 @@ def lvl5():
      v1=10
      v2=10
      F=5
+     velocity=16
+     imagenizquierda=sizq
+     imagenderecha=sder
      principal()
+     principal2()
 v.iconify()
 boton6=tkinter.Button(ventana, image=imagen_6boton,command=lvl5).place(x=1200, y=500)
 
