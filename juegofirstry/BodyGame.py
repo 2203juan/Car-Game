@@ -21,6 +21,8 @@ sonidoacelerar=pygame.mixer.Sound("acelerate.wav")
 sonidofail=pygame.mixer.Sound("loser.wav")
 crash=pygame.mixer.Sound("choque.wav")
 
+recarga=pygame.mixer.Sound("gasolina.wav")
+
 
 
 
@@ -132,6 +134,10 @@ run2=tkinter.PhotoImage(file="BlueCare.png")
 fi2=tkinter.PhotoImage(file="YellowCare.png")
 
 chargegas=tkinter.PhotoImage(file="Recarga.png")
+chargegas2=tkinter.PhotoImage(file="Recarga.png")
+
+mancha1=tkinter.PhotoImage(file="aceite.png")
+mancha2=tkinter.PhotoImage(file="aceite.png")
 
 #cargo las imagenes de los botones
 imagen_2boton=tkinter.PhotoImage(file="Level1.png")
@@ -232,6 +238,9 @@ u2=fondojuego.create_image(1250,600, image= user2)
 f2=fondojuego.create_image(1250, 55, image=fi2)
 r2=fondojuego.create_image(1100,55, image=run2)
 ga=fondojuego.create_image(200,55, image=chargegas)
+ga2=fondojuego.create_image(1300,55, image=chargegas2)
+ma1=fondojuego.create_image(120,50,image=mancha1)
+ma2=fondojuego.create_image(1220,50,image=mancha1)
 
 
 
@@ -287,6 +296,46 @@ def MiniVan2(s):
     if(fondojuego.coords(van2)[0]>=1220):
         fondojuego.move(van2,-203,0)
 
+
+def mancha(s):
+    
+    """
+    Esta función mueve verticalmente la MiniVan, un carro de color rojo, cuyo objetivo es moverse verticalmente hacia abajo, siendo un   obstáculo
+    para el jugador, que por cierto es el menos peligroso, ya que no cambia de carril mientras se mueve, es decir, su movimiente es constante.
+    
+    """
+    global fondojuego
+    x=random.randint(0,50)
+    mm=random.randint(-5000,-3000)
+    
+    fondojuego.move(ma1, 0, s)
+        
+    if(fondojuego.coords(ma1)[1]>700):
+        fondojuego.move(ma1,x,mm)
+
+    if(fondojuego.coords(ma1)[0]>=310):
+        fondojuego.move(ma1,-203,0)
+
+def mancha2(s):
+    """
+    Esta función mueve verticalmenta la MiniVan, un carro de color rojo, cuyo objetivo es moverse verticalmente hacia abajo, siendo un   obstáculo
+    para el jugador, que por cierto es el menos peligroso, ya que no cambia de carril mientras se mueve, es decir, su movimiente es constante.
+    
+    """
+    global fondojuego, m
+    mm=random.randint(-5000,-3000)
+    x=random.randint(0,100)
+  
+    
+    fondojuego.move(ma2, 0, s)
+        
+    if(fondojuego.coords(ma2)[1]>700):
+        fondojuego.move(ma2,x,mm)
+
+    if(fondojuego.coords(ma2)[0]>=1220):
+        fondojuego.move(ma2,-203,0)
+
+        
 def Fighter2(X,Y):
         """
         Esta función mueve al carro de color amarillo , cuyo objetivo es perseguir al carro del jugador para chocarlo, es el enemigo más peligroso de los tres,
@@ -343,7 +392,24 @@ def charge(s):
     if(fondojuego.coords(ga)[0]>=300):
         fondojuego.move(ga,-203,0)
 
+def charge2(s):
+    """
+    Esta función mueve verticalmenta la MiniVan, un carro de color rojo, cuyo objetivo es moverse verticalmente hacia abajo, siendo un   obstáculo
+    para el jugador, que por cierto es el menos peligroso, ya que no cambia de carril mientras se mueve, es decir, su movimiente es constante.
     
+    """
+    global fondojuego, m
+
+    x=random.randint(0,50)
+  
+    
+    fondojuego.move(ga2, 0, s)
+        
+    if(fondojuego.coords(ga2)[1]>700):
+        fondojuego.move(ga2,x,-700)
+
+    if(fondojuego.coords(ga2)[0]>=1220):
+        fondojuego.move(ga2,-203,0)
 
 
 #usercar
@@ -486,6 +552,12 @@ def colisionescarros():
     y2=fondojuego.coords(f)[1]
     y3=fondojuego.coords(k)[1]
     y4=fondojuego.coords(h)[1]
+    xr=fondojuego.coords(ga)[0]
+    yr=fondojuego.coords(ga)[1]
+    xm=fondojuego.coords(ma1)[0]
+    ym=fondojuego.coords(ma1)[1]
+    mm=random.randint(-7000,-5000)
+    
 
     #con el fighter
    
@@ -516,7 +588,7 @@ def colisionescarros():
 
    
     if(x1>=x3 and x1<=x3+26 and y1>=y3 and y1<=y3+53):
-
+        crash.play()
         fondojuego.move(x,5,0)
         contadorg1=contadorg1-250
         contadorv1= contadorv1-5
@@ -525,6 +597,7 @@ def colisionescarros():
 
 
     elif(x1+26>=x3 and x1<=x3+26 and y1+26>=y3 and y1<=y3+53):
+            crash.play()
             if (fondojuego.move(x,-5,0)):
                 fondojuego.move(x, 0,-5)
 
@@ -532,7 +605,7 @@ def colisionescarros():
 
        
     if(x1>=x4 and x1<=x4+26 and y1>=y4 and y1<=y4+52):
-
+        crash.play()
         fondojuego.move(x,5,0)
         contadorg1=contadorg1-250
         contadorv1= contadorv1-5
@@ -541,12 +614,42 @@ def colisionescarros():
 
 
     elif(x1+26>=x4 and x1<=x4+26 and y1+26>=y4 and y1<=y4+52):
+            crash.play()
             if (fondojuego.move(x,-5,0)):
                 fondojuego.move(x, 0,-5)
 
 
+    #recargador de gasolina
 
+    
 
+    if(x1>=xr and x1<=xr+30 and y1>=yr and y1<=yr+35):
+         fondojuego.move(ga,0, mm)
+         recarga.play()
+         contadorg1=contadorg1+1000
+
+        
+
+    elif(x1+26>=xr and x1<=xr+30 and y1+26>=yr and y1<=yr+35):
+
+         fondojuego.move(ga,0, mm)
+         recarga.play()
+         contadorg1=contadorg1+1000
+
+    #mancha de aceite
+
+    if(x1>=xm and x1<=xm+40 and y1>=ym and y1<=ym+40):
+         fondojuego.move(x,7, 0)
+         contadorg1=contadorg1-200
+         contadorv1= contadorv1-5
+         
+
+    elif(x1+26>=xm and x1<=xm+40 and y1+26>=ym and y1<=ym+40):
+
+         fondojuego.move(x,7, 0)
+         contadorg1=contadorg1-200
+         contadorv1= contadorv1-5
+         
 
 
 def colisionescarros2():
@@ -566,7 +669,12 @@ def colisionescarros2():
     y2=fondojuego.coords(f2)[1]
     y3=fondojuego.coords(van2)[1]
     y4=fondojuego.coords(r2)[1]
-
+    xr=fondojuego.coords(ga2)[0]
+    yr=fondojuego.coords(ga2)[1]
+    xm=fondojuego.coords(ma2)[0]
+    ym=fondojuego.coords(ma2)[1]
+    mm=random.randint(-7000,-5000)
+    
 
     # con el fighter
    
@@ -592,6 +700,7 @@ def colisionescarros2():
 
 
     if(x1>=x3 and x1<=x3+26 and y1>=y3 and y1<=y3+53):
+        crash.play()
         fondojuego.move(u2,5,0)
         contadorg2=contadorg2-250
         contadorv2= contadorv2-5   
@@ -599,12 +708,14 @@ def colisionescarros2():
             fondojuego.move(u2, 0,-5)
 
     elif(x1+26>=x3 and x1<=x3+26 and y1+26>=y3 and y1<=y3+53):
+            crash.play()
             if (fondojuego.move(u2,-5,0)):
                 fondojuego.move(u2, 0,-5)
 
     # con el runner
 
     if(x1>=x4 and x1<=x4+26 and y1>=y4 and y1<=y4+53):
+        crash.play()
         fondojuego.move(u2,5,0)
         contadorg2=contadorg2-250
         contadorv2= contadorv2-5
@@ -612,10 +723,36 @@ def colisionescarros2():
             fondojuego.move(u2, 0,-5)
 
     elif(x1+26>=x4 and x1<=x4+26 and y1+26>=y4 and y1<=y4+53):
+            crash.play()
             if (fondojuego.move(u2,-5,0)):
                 fondojuego.move(u2, 0,-5)
 
-    
+
+    #recargador de gasolina
+
+
+    if(x1>=xr and x1<=xr+30 and y1>=yr and y1<=yr+35):
+         fondojuego.move(ga2,0, mm)
+         recarga.play()
+         contadorg2=contadorg2+1000
+
+    elif(x1+26>=xr and x1<=xr+30 and y1+26>=yr and y1<=yr+35):
+         fondojuego.move(ga2,0, mm)
+         recarga.play()
+         contadorg2=contadorg2+1000
+    #mancha de aceite
+
+    if(x1>=xm and x1<=xm+40 and y1>=ym and y1<=ym+40):
+         fondojuego.move(u2,7, 0)
+         contadorg2=contadorg2-200
+         contadorv2= contadorv2-5
+         
+
+    elif(x1+26>=xm and x1<=xm+40 and y1+26>=ym and y1<=ym+40):
+
+         fondojuego.move(u2,7, 0)
+         contadorg2=contadorg2-200
+         contadorv2= contadorv2-5
 
 
 
@@ -696,12 +833,17 @@ gasolinajugador1=tkinter.StringVar()
 contadorv1=0
 velocidadjugador1=tkinter.StringVar()
 
+#distancia para el juador 1
+
+contadord1=0
+distanciajugador1=tkinter.StringVar()
+
 
 
 
 #llamado de funciones
 def principal():
-    global  imagenizquierda, velocity,tiempo1, contador1, tiempojugador1,contadorg1, contadorv1, velocidadjugador1,contadorg2
+    global  imagenizquierda, velocity,tiempo1, contador1, tiempojugador1,contadorg1, contadorv1, velocidadjugador1,contadorg2,contadord1, distanciajugador1
 
 
     """
@@ -728,7 +870,7 @@ def principal():
         
         Runner()
         fondomoving(imagenizquierda,velocity)
-        
+        mancha(1)
         charge(4)
         colisionescarros()
 
@@ -751,6 +893,9 @@ def principal():
             contadorv1=contadorv1+0.09
 
             velocidadjugador1.set(round(contadorv1))
+
+        contadord1=contadord1+0.09
+        distanciajugador1.set(round(contadord1))
 
     
 
@@ -775,10 +920,16 @@ tiempojugador2=tkinter.StringVar()
 contadorg2=7000
 gasolinajugador2=tkinter.StringVar()
 
-#Velocidad en etiquetas del jugador 1
+#Velocidad en etiquetas del jugador 2
 
 contadorv2=0
 velocidadjugador2=tkinter.StringVar()
+
+#distancia para el juador 2
+
+contadord2=0
+distanciajugador2=tkinter.StringVar()
+
 
 def principal2():
     global imagenderecha, velocity, contador2, tiempojugador2,contadorg2,contadorv2
@@ -800,7 +951,9 @@ def principal2():
             Fighter2(F,v2)
             Runner2()
             fondomoving2(imagenderecha,velocity)
-            #charge(v1)
+            mancha2(1)
+            charge2(4)
+
             colisionescarros2()
             if contador2>0:
 
@@ -819,7 +972,10 @@ def principal2():
 
                  contadorv2=contadorv2+0.09
 
-            velocidadjugador2.set(round(contadorv2))
+                 velocidadjugador2.set(round(contadorv2))
+
+            contadord2=contadord1+0.09
+            distanciajugador2.set(round(contadord1))
 
 km="km/h"       
 #RunnerCar()
@@ -859,7 +1015,9 @@ def lvl1():
     labelgasolina1=tkinter.Label(v,textvariable=gasolinajugador1, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=570, y=450)
     labelgasolina2=tkinter.Label(v,textvariable=gasolinajugador2, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=770, y=450)
     labelvelocidad1=tkinter.Label(v,textvariable=velocidadjugador1, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=570, y=390)
-    labelvelocidad2=tkinter.Label(v,textvariable=velocidadjugador2, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=760, y=390)     
+    labelvelocidad2=tkinter.Label(v,textvariable=velocidadjugador2, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=760, y=390)
+    labeldistancia1=tkinter.Label(v,textvariable=distanciajugador1, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=560, y=607)
+    labeldistancia2=tkinter.Label(v,textvariable=distanciajugador2, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=760, y=607)   
     fondojuego.focus_set()
     
     
@@ -908,7 +1066,9 @@ def lvl2():
     labelgasolina1=tkinter.Label(v,textvariable=gasolinajugador1, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=560, y=480)
     labelgasolina2=tkinter.Label(v,textvariable=gasolinajugador2, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=760, y=480)
     labelvelocidad1=tkinter.Label(v,textvariable=velocidadjugador1, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=560, y=400) 
-    labelvelocidad2=tkinter.Label(v,textvariable=velocidadjugador2, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=760, y=400)     
+    labelvelocidad2=tkinter.Label(v,textvariable=velocidadjugador2, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=760, y=400)
+    labeldistancia1=tkinter.Label(v,textvariable=distanciajugador1, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=560, y=620)
+    labeldistancia2=tkinter.Label(v,textvariable=distanciajugador2, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=760, y=620)   
 
     fondojuego.focus_set()
     v.deiconify()
@@ -949,7 +1109,9 @@ def lvl3():
     labelgasolina1=tkinter.Label(v,textvariable=gasolinajugador1, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=560, y=480)
     labelgasolina2=tkinter.Label(v,textvariable=gasolinajugador2, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=760, y=480)
     labelvelocidad1=tkinter.Label(v,textvariable=velocidadjugador1, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=565, y=390) 
-    labelvelocidad2=tkinter.Label(v,textvariable=velocidadjugador2, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=765, y=390)   
+    labelvelocidad2=tkinter.Label(v,textvariable=velocidadjugador2, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=765, y=390)
+    labeldistancia1=tkinter.Label(v,textvariable=distanciajugador1, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=560, y=612)
+    labeldistancia2=tkinter.Label(v,textvariable=distanciajugador2, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=760, y=612)   
     fondojuego.focus_set()
     v.deiconify()
     ventana.iconify()
@@ -976,12 +1138,14 @@ def lvl4():
      fondojuego.delete(c5)
      labeljugador1=tkinter.Label(v,text=nombre.get(), font=("Tempus Sans ITC",20),fg="black",bg="white").place(x=540, y=339)
      labeljugador2=tkinter.Label(v,text=nombre2.get(), font=("Tempus Sans ITC",20),fg="black",bg="white").place(x=740, y=339)
-     labeltiempo1=tkinter.Label(v,textvariable=tiempojugador1, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=570, y=580)
-     labeltiempo2=tkinter.Label(v,textvariable=tiempojugador2, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=765, y=580)
-     labelgasolina1=tkinter.Label(v,textvariable=gasolinajugador1, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=560, y=490)
-     labelgasolina2=tkinter.Label(v,textvariable=gasolinajugador2, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=760, y=490)
-     labelvelocidad1=tkinter.Label(v,textvariable=velocidadjugador1, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=560, y=420) 
-     labelvelocidad2=tkinter.Label(v,textvariable=velocidadjugador2, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=760, y=420)   
+     labeltiempo1=tkinter.Label(v,textvariable=tiempojugador1, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=570, y=550)
+     labeltiempo2=tkinter.Label(v,textvariable=tiempojugador2, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=765, y=550)
+     labelgasolina1=tkinter.Label(v,textvariable=gasolinajugador1, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=560, y=460)
+     labelgasolina2=tkinter.Label(v,textvariable=gasolinajugador2, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=760, y=460)
+     labelvelocidad1=tkinter.Label(v,textvariable=velocidadjugador1, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=555, y=387) 
+     labelvelocidad2=tkinter.Label(v,textvariable=velocidadjugador2, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=755, y=387)
+     labeldistancia1=tkinter.Label(v,textvariable=distanciajugador1, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=560, y=607)
+     labeldistancia2=tkinter.Label(v,textvariable=distanciajugador2, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=760, y=607)   
      fondojuego.focus_set()
      v.deiconify()
      ventana.iconify()
@@ -1004,13 +1168,14 @@ def lvl5():
      
      labeljugador1=tkinter.Label(v,text=nombre.get(), font=("Tempus Sans ITC",20),fg="black",bg="white").place(x=540, y=339)
      labeljugador2=tkinter.Label(v,text=nombre2.get(), font=("Tempus Sans ITC",20),fg="black",bg="white").place(x=740, y=339)
-     labeltiempo1=tkinter.Label(v,textvariable=tiempojugador1, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=570, y=590)
-     labeltiempo2=tkinter.Label(v,textvariable=tiempojugador2, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=765, y=590)
-     labelgasolina1=tkinter.Label(v,textvariable=gasolinajugador1, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=560, y=500)
-     labelgasolina2=tkinter.Label(v,textvariable=gasolinajugador2, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=760, y=500)
-     labelvelocidad1=tkinter.Label(v,textvariable=velocidadjugador1, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=560, y=430) 
-     labelvelocidad2=tkinter.Label(v,textvariable=velocidadjugador2, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=760, y=430)   
-     
+     labeltiempo1=tkinter.Label(v,textvariable=tiempojugador1, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=570, y=550)
+     labeltiempo2=tkinter.Label(v,textvariable=tiempojugador2, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=765, y=550)
+     labelgasolina1=tkinter.Label(v,textvariable=gasolinajugador1, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=560, y=460)
+     labelgasolina2=tkinter.Label(v,textvariable=gasolinajugador2, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=760, y=460)
+     labelvelocidad1=tkinter.Label(v,textvariable=velocidadjugador1, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=560, y=387) 
+     labelvelocidad2=tkinter.Label(v,textvariable=velocidadjugador2, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=760, y=387)   
+     labeldistancia1=tkinter.Label(v,textvariable=distanciajugador1, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=560, y=607)
+     labeldistancia2=tkinter.Label(v,textvariable=distanciajugador2, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=760, y=607)        
      fondojuego.focus_set()
      v.deiconify()
      ventana.iconify()
