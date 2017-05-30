@@ -1,0 +1,1 @@
+{'TiempoJugador1': 36.68999999999912, 'GasJugador1': 6447, 'SpeedJugador1': 134.86000000000402, 'DistanceJugador1': 139.86000000000402}

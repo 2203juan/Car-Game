@@ -300,8 +300,8 @@ def MiniVan2(s):
 def mancha(s):
     
     """
-    Esta función mueve verticalmente la MiniVan, un carro de color rojo, cuyo objetivo es moverse verticalmente hacia abajo, siendo un   obstáculo
-    para el jugador, que por cierto es el menos peligroso, ya que no cambia de carril mientras se mueve, es decir, su movimiente es constante.
+    Esta función mueve verticalmente la mancha de aceite, de color negro, cuyo objetivo es moverse verticalmente hacia abajo, siendo un   obstáculo
+    para el jugador, en el cual se puede resbalar, aunque el código que lo hace resbalar se encuentra en las colisiones
     
     """
     global fondojuego
@@ -318,8 +318,8 @@ def mancha(s):
 
 def mancha2(s):
     """
-    Esta función mueve verticalmenta la MiniVan, un carro de color rojo, cuyo objetivo es moverse verticalmente hacia abajo, siendo un   obstáculo
-    para el jugador, que por cierto es el menos peligroso, ya que no cambia de carril mientras se mueve, es decir, su movimiente es constante.
+    Esta función mueve verticalmente la mancha de aceite, de color negro, cuyo objetivo es moverse verticalmente hacia abajo, siendo un   obstáculo
+    para el jugador, en el cual se puede resbalar, aunque el código que lo hace resbalar se encuentra en las colisiones
     
     """
     global fondojuego, m
@@ -375,8 +375,8 @@ def Fighter(X,Y):
 
 def charge(s):
     """
-    Esta función mueve verticalmenta la MiniVan, un carro de color rojo, cuyo objetivo es moverse verticalmente hacia abajo, siendo un   obstáculo
-    para el jugador, que por cierto es el menos peligroso, ya que no cambia de carril mientras se mueve, es decir, su movimiente es constante.
+    Esta función mueve verticalmenta la nave de recarga, la cuál permitirá que el usuario que pase por encima de ella recargue un poco su combustible
+    aunque el código que hace que se recargue la gasolina se encuentra en la función de las colisiones.
     
     """
     global fondojuego, m
@@ -394,8 +394,8 @@ def charge(s):
 
 def charge2(s):
     """
-    Esta función mueve verticalmenta la MiniVan, un carro de color rojo, cuyo objetivo es moverse verticalmente hacia abajo, siendo un   obstáculo
-    para el jugador, que por cierto es el menos peligroso, ya que no cambia de carril mientras se mueve, es decir, su movimiente es constante.
+    Esta función mueve verticalmenta la nave de recarga, la cuál permitirá que el usuario que pase por encima de ella recargue un poco su combustible
+    aunque el código que hace que se recargue la gasolina se encuentra en la función de las colisiones.
     
     """
     global fondojuego, m
@@ -449,7 +449,7 @@ def key2():
 
 def Runner():
     """
-    Esta función se encarga de mover el carro azul, cuyo objetivo es tratar de chocar al carro del jugador,ncambiando de carril constantemente
+    Esta función se encarga de mover el carro azul, cuyo objetivo es tratar de chocar al carro del jugador,cambiando de carril constantemente
     mientras se mueve verticalmente hacia abajo y horizontalmente de derecha a izquierda y visceversa.
 
     """
@@ -481,8 +481,8 @@ def Runner2():
     fondojuego.move(r2,y,vv)
 def colisionesbor():
     """
-    Esta función se encarga de hacer el efecto de explosión cuando el carro del jugador toca alguno de los dos extremos de la carretera, implicando
-    que si esto sucede, el jugador habrá perdido la partida.
+    Esta función se encarga de hacer el efecto de explosión cuando el carro del jugador uno toca alguno de los dos extremos de la carretera, implicando
+    que si esto sucede, el jugador habrá perdido la partida. 
     
     """
     
@@ -500,7 +500,7 @@ def colisionesbor():
 
 def colisionesbor2():
     """
-    Esta función se encarga de hacer el efecto de explosión cuando el carro del jugador toca alguno de los dos extremos de la carretera, implicando
+    Esta función se encarga de hacer el efecto de explosión cuando el carro del jugador dos  toca alguno de los dos extremos de la carretera, implicando
     que si esto sucede, el jugador habrá perdido la partida.
     
     """
@@ -537,7 +537,8 @@ ii=0
 def colisionescarros():
     global x,contadorg1, contadorv1
     '''
-    Esta función se encarga de hacer el efecto de choque entre el carro del jugador y los enemigos
+    Esta función se encarga de hacer el efecto de choque entre el carro del jugador uno y los enemigos, además permite recargar de gasolina con la
+    nave de recarga, y a su vez resbalar en la mancha de aceite.
 
     '''
   
@@ -655,9 +656,11 @@ def colisionescarros():
 def colisionescarros2():
     global x,contadorg2, contadorv2
     '''
-    Esta función se encarga de hacer el efecto de choque entre el carro del jugador y los enemigos
+    Esta función se encarga de hacer el efecto de choque entre el carro del jugador dos y los enemigos, además permite recargar de gasolina con la
+    nave de recarga, y a su vez resbalar en la mancha de aceite.
 
     '''
+  
   
     
 
@@ -770,7 +773,7 @@ def colisionescarros2():
 
 def fondomoving(fondoizquierda,velocidad):
     """
-    Esta función se encarga de mover el fondo de la parte izquierda para que la carretera tenga vida
+    Esta función se encarga de mover la parte izquierda de los fondos, con el fin de crear el efecto de aceleración
 
     """
 
@@ -783,7 +786,7 @@ def fondomoving(fondoizquierda,velocidad):
 
 def fondomoving2(fondoderecha,velocidad):
     """
-    Esta función se encarga de mover el fondo de la parte derecha para que la carretera tenga vida
+    Esta función se encarga de mover la parte derecha de los fondos, con el fin de crear el efecto de aceleración
 
     """
 
@@ -795,7 +798,13 @@ def fondomoving2(fondoderecha,velocidad):
     if(fondojuego.coords(fondoderecha)[1]>2500):
             fondojuego.move(fondoderecha,0,-fondojuego.coords(fondoderecha)[1])
 
-        
+def guardar():
+    global archivo
+    archivoTxt = open("archivo.txt", "a")
+    archivoTxt.write(str(archivo))
+    archivoTxt.close()
+
+    
   
            
 
@@ -840,17 +849,18 @@ distanciajugador1=tkinter.StringVar()
 
 
 
-
+archivo= {}
 #llamado de funciones
 def principal():
-    global  imagenizquierda, velocity,tiempo1, contador1, tiempojugador1,contadorg1, contadorv1, velocidadjugador1,contadorg2,contadord1, distanciajugador1
-
 
     """
     Esta función se encarga de llamar a todas las funciones antes creadas para que al momento de ser llamada empiecen todos los movimientos y se
-    pueda iniciar el juego en el respectivo nivel
+    pueda iniciar el juego en el respectivo nivel para el jugador 1
     
     """
+    global  imagenizquierda,velocity,tiempo1,contador1,tiempojugador1,contadorg1,contadorv1,velocidadjugador1,contadorg2,contadord1,distanciajugador1, archivo
+
+
     if colisionesbor()  :
         return 0
 
@@ -874,15 +884,22 @@ def principal():
         charge(4)
         colisionescarros()
 
+        partida=open("archivo.txt","w")
+       # lista=partida.readline()
+        partida.close()
+        
+
         if contador1>0:
 
             contador1=contador1-0.015
+            archivo["TiempoJugador1"]= contador1
 
             tiempojugador1.set(round(contador1))
 
         if contadorg1>0:
 
             contadorg1=contadorg1-1
+            archivo["GasJugador1"]= contadorg1
 
             gasolinajugador1.set(round(contadorg1))
 
@@ -891,11 +908,15 @@ def principal():
         if contadorv1<200:
 
             contadorv1=contadorv1+0.09
+            archivo["SpeedJugador1"]= contadorv1
 
             velocidadjugador1.set(round(contadorv1))
 
         contadord1=contadord1+0.09
+
+        archivo["DistanceJugador1"]= contadord1
         distanciajugador1.set(round(contadord1))
+        
 
     
 
@@ -908,6 +929,7 @@ def principal():
         
       
         #print(var.set())
+        guardar()
         v.after(15,principal)
 
 # tiempo de jugador 2
@@ -932,6 +954,12 @@ distanciajugador2=tkinter.StringVar()
 
 
 def principal2():
+
+    """
+    Esta función se encarga de llamar a todas las funciones antes creadas para que al momento de ser llamada empiecen todos los movimientos y se
+    pueda iniciar el juego en el respectivo nivel para el jugador 2
+    
+    """
     global imagenderecha, velocity, contador2, tiempojugador2,contadorg2,contadorv2
 
     if  colisionesbor2() :
@@ -977,13 +1005,13 @@ def principal2():
             contadord2=contadord1+0.09
             distanciajugador2.set(round(contadord1))
 
-km="km/h"       
-#RunnerCar()
+   
+
 def lvl1():
     """
     En esta función se hará el llamado de la función principal, se darán valores para las funciones que tienen parámetros( los cuales se han creado con el fin de
     controlar totalmente, y especialmente para poder darle dificultad a cada nivel , en este caso, al nivel 1), además se agregan condicionales que paran el juego
-    en caso de que el jugador pierda la partida
+    en caso de que el jugador pierda la partida.
 
     """
     global v1,v2,F,po, imagenizquierda, velocity, nombre, nombrecaja,tiempo1, tiempojugador1, contador1
@@ -1042,6 +1070,12 @@ v.iconify()
 boton2=tkinter.Button(ventana, image=imagen_2boton,command=lvl1).place(x=1200, y=300)
 
 def lvl2():
+    """
+    En esta función se hará el llamado de la función principal, se darán valores para las funciones que tienen parámetros( los cuales se han creado con el fin de
+    controlar totalmente, y especialmente para poder darle dificultad a cada nivel , en este caso, al nivel 2), además se agregan condicionales que paran el juego
+    en caso de que el jugador pierda la partida.
+
+    """
     global v1,v2,F, imagenizquierda, velocity, imagenderecha, tiempojugador1, contador1
     musicaMenu.stop()
 
@@ -1086,6 +1120,13 @@ v.iconify()
 boton3=tkinter.Button(ventana, image=imagen_3boton,command=lvl2).place(x=1200, y=350)
 
 def lvl3():
+
+    """
+    En esta función se hará el llamado de la función principal, se darán valores para las funciones que tienen parámetros( los cuales se han creado con el fin de
+    controlar totalmente, y especialmente para poder darle dificultad a cada nivel , en este caso, al nivel 3), además se agregan condicionales que paran el juego
+    en caso de que el jugador pierda la partida.
+
+    """
     global v1,v2,F,imagenizquierda, velocity, imagenderecha, tiempojugador1, contador1
 
     musicaMenu.stop()
@@ -1127,6 +1168,13 @@ v.iconify()
 boton4=tkinter.Button(ventana, image=imagen_4boton,command=lvl3).place(x=1200, y=400)
 
 def lvl4():
+
+     """
+     En esta función se hará el llamado de la función principal, se darán valores para las funciones que tienen parámetros( los cuales se han creado con el fin de
+     controlar totalmente, y especialmente para poder darle dificultad a cada nivel , en este caso, al nivel 2), además se agregan condicionales que paran el juego
+     en caso de que el jugador pierda la partida.
+
+     """
      global  v1,v2,F,imagenizquierda, velocity, imagenderecha, tiempojugador1, contador1
 
      musicaMenu.stop()
@@ -1161,6 +1209,13 @@ v.iconify()
 boton5=tkinter.Button(ventana, image=imagen_5boton,command=lvl4).place(x=1200, y=450)
 
 def lvl5():
+
+     """
+     En esta función se hará el llamado de la función principal, se darán valores para las funciones que tienen parámetros( los cuales se han creado con el fin de
+     controlar totalmente, y especialmente para poder darle dificultad a cada nivel , en este caso, al nivel 2), además se agregan condicionales que paran el juego
+     en caso de que el jugador pierda la partida.
+
+     """
      global v1,v2,F,imagenizquierda, velocity, imagenderecha, tiempojugador1, contador1
      musicaMenu.stop()
      pygame.mixer.music.load("nivel5.wav")
@@ -1193,6 +1248,10 @@ boton6=tkinter.Button(ventana, image=imagen_6boton,command=lvl5).place(x=1200, y
 
 
 def pasar():
+    """
+    Esta función permite al usuario pasar al siguiente nivel
+
+    """
     v.destroy()
     ventana.destroy()
     import BodyGame
@@ -1207,14 +1266,13 @@ def pasar():
 fondojuego.bind("<KeyPress>",keydown)
 fondojuego.bind("<KeyRelease>",keyup)
 
-# Pone el foco en el canvas
+
 
 
 #enpaquetado( mostrar lo hecho con canvas)
-#entrada1.focus_Set()
+
 fondojuego.pack()
-#muestraplayer1.pack()
-#fondotextos.pack()
+
 
 
 
