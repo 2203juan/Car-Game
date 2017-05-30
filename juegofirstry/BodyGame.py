@@ -797,12 +797,34 @@ def fondomoving2(fondoderecha,velocidad):
     fondojuego.move(fondoderecha, 0, velocidad)
     if(fondojuego.coords(fondoderecha)[1]>2500):
             fondojuego.move(fondoderecha,0,-fondojuego.coords(fondoderecha)[1])
-
+"""
 def guardar():
-    global archivo
+
     archivoTxt = open("archivo.txt", "a")
     archivoTxt.write(str(archivo))
     archivoTxt.close()
+"""
+def cargardatos():
+    global archivo,contador1, contadorg1, contadorv1, contadord1
+
+  
+
+    partida= open("archivo.txt", "r")
+    contador1=eval(partida.readline())
+    print(contador1)
+    contadorg1=eval(partida.readline())
+    print(contadorg1)
+    contadorv1=eval(partida.readline())
+    print(contadorv1)
+    contadord1=eval(partida.readline())
+    print(contadord1)
+
+    lvl1()
+
+    partida.close()
+    
+
+    
 
     
   
@@ -849,7 +871,7 @@ distanciajugador1=tkinter.StringVar()
 
 
 
-archivo= {}
+
 #llamado de funciones
 def principal():
 
@@ -862,11 +884,15 @@ def principal():
 
 
     if colisionesbor()  :
+        crash.play()
+        sonidofail.play()
         return 0
 
     if contador1<=0:
+        pygame.mixer.music.load("win.wav")
+        pygame.mixer.music.play(2)
         
-        boton1 = tkinter.Button(v, text="Felicitaciones: vuelve a abrirme y tendrás acceso al siguiente nivel",command=pasar).place(x=650, y=620)
+        boton1 = tkinter.Button(v, text="Felicitaciones: vuelve a abrirme y tendrás acceso al siguiente nivel",command=pasar).place(x=540, y=655)
         return 0
     elif (contadorg1<=0):
         return 0
@@ -886,42 +912,54 @@ def principal():
 
         partida=open("archivo.txt","w")
        # lista=partida.readline()
-        partida.close()
+        #partida.close()
         
 
         if contador1>0:
-
+            
             contador1=contador1-0.015
-            archivo["TiempoJugador1"]= contador1
+            partida.write(str(round(contador1)))
+            partida.write("\n"+str(round(contadorg1)))
+            partida.write("\n"+str(round(contadorv1)))
+            partida.write("\n"+str(round(contadord1)))
+            
 
             tiempojugador1.set(round(contador1))
+
+        else:
+            partida.write(str(round(contador1)))
+            partida.write("\n"+str(round(contadorg1)))
+            partida.write("\n"+str(round(contadorv1)))
+            partida.write("\n"+str(round(contadord1)))
 
         if contadorg1>0:
 
             contadorg1=contadorg1-1
-            archivo["GasJugador1"]= contadorg1
 
             gasolinajugador1.set(round(contadorg1))
+            
 
 
 
         if contadorv1<200:
 
             contadorv1=contadorv1+0.09
-            archivo["SpeedJugador1"]= contadorv1
+            #archivo["SpeedJugador1"]= round(contadorv1)
 
             velocidadjugador1.set(round(contadorv1))
 
+
         contadord1=contadord1+0.09
 
-        archivo["DistanceJugador1"]= contadord1
+        #archivo["DistanceJugador1"]= round(contadord1)
         distanciajugador1.set(round(contadord1))
+
         
 
     
 
 
-
+        #partida.close()
         #tiempodejuego()
 
         key()
@@ -929,7 +967,7 @@ def principal():
         
       
         #print(var.set())
-        guardar()
+        #guardar()
         v.after(15,principal)
 
 # tiempo de jugador 2
@@ -963,13 +1001,15 @@ def principal2():
     global imagenderecha, velocity, contador2, tiempojugador2,contadorg2,contadorv2
 
     if  colisionesbor2() :
+        crash.play()
+        sonidofail.play()
         return 0
 
     elif   contadorg2<=0:
         return 0
 
     if contador2<=0:
-        boton1 = tkinter.Button(v, text="Felicitaciones: vuelve a abrirme y tendrás acceso al siguiente nivel",command=pasar).place(x=650, y=620)
+        boton1 = tkinter.Button(v, text="Felicitaciones: vuelve a abrirme y tendrás acceso al siguiente nivel",command=pasar).place(x=540, y=655)
         return 0
         
            
@@ -1244,7 +1284,7 @@ def lvl5():
      principal2()
 v.iconify()
 boton6=tkinter.Button(ventana, image=imagen_6boton,command=lvl5).place(x=1200, y=500)
-
+Continuar=tkinter.Button(ventana,text="Continuar" ,font=("Tempus Sans ITC",12),command=cargardatos).place(x=1200, y=550)
 
 
 def pasar():
