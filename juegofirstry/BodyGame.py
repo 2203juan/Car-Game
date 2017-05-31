@@ -770,17 +770,18 @@ def colisionescarros2():
 
     
 
-
+velocidadfondo=15
 def fondomoving(fondoizquierda,velocidad):
+
     """
     Esta función se encarga de mover la parte izquierda de los fondos, con el fin de crear el efecto de aceleración
 
     """
 
-    global fondojuego, v
+    global fondojuego, v, velocidadfondo
     
 
-    fondojuego.move(fondoizquierda, 0, 15)
+    fondojuego.move(fondoizquierda, 0, velocidadfondo)
     if(fondojuego.coords(fondoizquierda)[1]>2500):
             fondojuego.move(fondoizquierda,0,-fondojuego.coords(fondoizquierda)[1])
 
@@ -790,11 +791,11 @@ def fondomoving2(fondoderecha,velocidad):
 
     """
 
-    global fondojuego, v
+    global fondojuego, v, velocidadfondo
     
 
         
-    fondojuego.move(fondoderecha, 0, velocidad)
+    fondojuego.move(fondoderecha, 0, velocidadfondo)
     if(fondojuego.coords(fondoderecha)[1]>2500):
             fondojuego.move(fondoderecha,0,-fondojuego.coords(fondoderecha)[1])
 """
@@ -901,7 +902,7 @@ def principal():
 
     else:
         
-        Fighter(F,v2)
+        Fighter(F,v2)#F es el movimiento en x, v2 el movimiento en y
         MiniVan(v1)
         
         Runner()
@@ -1016,7 +1017,7 @@ def principal2():
 
     else:
             MiniVan2(v1)
-            Fighter2(F,v2)
+            Fighter2(F,v2)#F es el movimiento en x, v2 el movimiento en y
             Runner2()
             fondomoving2(imagenderecha,velocity)
             mancha2(1)
@@ -1092,7 +1093,7 @@ def lvl1():
     v.deiconify()
     ventana.iconify()
     v1=2
-    v2=3
+    v2=2#F es el movimiento en x, v2 el movimiento en y, v1 el movimiento vertical de la van
     F=1
     velocity=10
 
@@ -1116,13 +1117,13 @@ def lvl2():
     en caso de que el jugador pierda la partida.
 
     """
-    global v1,v2,F, imagenizquierda, velocity, imagenderecha, tiempojugador1, contador1
+    global v1,v2,F, imagenizquierda, velocity, imagenderecha, tiempojugador1, contador1, velocidadfondo
     musicaMenu.stop()
 
     pygame.mixer.music.load("nivel2.wav")#canción del nivel 2
     pygame.mixer.music.play()#reproduce la canción del nivel2
 
-
+    velocidadfondo=20
     fondojuego.delete(moraizq)
     fondojuego.delete(morader)
     fondojuego.delete(roizq)
@@ -1147,8 +1148,8 @@ def lvl2():
     fondojuego.focus_set()
     v.deiconify()
     ventana.iconify()
-    v1=3
-    v2=4
+    v1=4#F es el movimiento en x, v2 el movimiento en y, v1 el movimiento vertical de la van
+    v2=3
     F=1.2
     imagenizquierda=tierrizq
     imagenderecha=tierrder
@@ -1167,11 +1168,13 @@ def lvl3():
     en caso de que el jugador pierda la partida.
 
     """
-    global v1,v2,F,imagenizquierda, velocity, imagenderecha, tiempojugador1, contador1
+    global v1,v2,F,imagenizquierda, velocity, imagenderecha, tiempojugador1, contador1, velocidadfondo
 
     musicaMenu.stop()
     pygame.mixer.music.load("nivel3.wav")
     pygame.mixer.music.play()
+
+    velocidadfondo=30
 
     fondojuego.delete(tierrizq)
     fondojuego.delete(tierrder)
@@ -1196,9 +1199,9 @@ def lvl3():
     fondojuego.focus_set()
     v.deiconify()
     ventana.iconify()
-    v1=5
-    v2=7
-    F=2
+    v1=5#F es el movimiento en x, v2 el movimiento en y, v1 el movimiento vertical de la van
+    v2=4
+    F=1.5
     imagenizquierda=moraizq
     imagenderecha=morader
     velocity=15
@@ -1215,11 +1218,13 @@ def lvl4():
      en caso de que el jugador pierda la partida.
 
      """
-     global  v1,v2,F,imagenizquierda, velocity, imagenderecha, tiempojugador1, contador1
+     global  v1,v2,F,imagenizquierda, velocity, imagenderecha, tiempojugador1, contador1, velocidadfondo
 
      musicaMenu.stop()
      pygame.mixer.music.load("nivel4.wav")
      pygame.mixer.music.play()
+
+     velocidadfondo=40
 
      fondojuego.delete(sizq)
      fondojuego.delete(sder)
@@ -1238,8 +1243,8 @@ def lvl4():
      v.deiconify()
      ventana.iconify()
      v1=6
-     v2=8
-     F=5
+     v2=5#F es el movimiento en x, v2 el movimiento en y, v1 el movimiento vertical de la van
+     F=1.6
      velocity=15
      imagenizquierda=roizq
      imagenderecha=roder
@@ -1256,10 +1261,12 @@ def lvl5():
      en caso de que el jugador pierda la partida.
 
      """
-     global v1,v2,F,imagenizquierda, velocity, imagenderecha, tiempojugador1, contador1
+     global v1,v2,F,imagenizquierda, velocity, imagenderecha, tiempojugador1, contador1,velocidadfondo
      musicaMenu.stop()
      pygame.mixer.music.load("nivel5.wav")
      pygame.mixer.music.play()
+
+     velocidadfondo=50
      
      labeljugador1=tkinter.Label(v,text=nombre.get(), font=("Tempus Sans ITC",20),fg="black",bg="white").place(x=540, y=339)
      labeljugador2=tkinter.Label(v,text=nombre2.get(), font=("Tempus Sans ITC",20),fg="black",bg="white").place(x=740, y=339)
@@ -1274,9 +1281,9 @@ def lvl5():
      fondojuego.focus_set()
      v.deiconify()
      ventana.iconify()
-     v1=10
-     v2=10
-     F=5
+     v1=7
+     v2=8
+     F=2#F es el movimiento en x, v2 el movimiento en y, v1 el movimiento vertical de la van
      velocity=16
      imagenizquierda=sizq
      imagenderecha=sder
