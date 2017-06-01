@@ -12,7 +12,7 @@ import random
 import math
 import pygame
 from pygame.locals import * #solo para la música
-import webbrowser
+import webbrowser# para poder abrir el archivo pdf que contiene el manual de usuario
 
 
 pygame.mixer.init()
@@ -50,6 +50,10 @@ fondomenu = tkinter.Label(ventana, image=imagen1).place(x=0 ,y=0)
 
 #Boton de instrucciones del juego
 def instrucciones():
+    """
+    Esta función permite abrir el documento pdf que contiene las instrucciones
+
+    """
 
     webbrowser.open_new(r'C:\Users\JuanJoséHoyosUrcu\Documents\GitHub\xCarGameJuanx\juegofirstry\manual.pdf')
 instructions=tkinter.Button(ventana,text="¿Cómo jugar?", command= instrucciones).place(x=20, y= 500 )
@@ -124,7 +128,7 @@ explosion = tkinter. PhotoImage(file="explosion1.png")#explosion de choque
 photo=tkinter.PhotoImage(file="BlueCare.png")#CarroRunnerAzul
 vancar=tkinter.PhotoImage(file="RedCare.png")#Carro Minivan rojo
 fighter=tkinter.PhotoImage(file="YellowCare.png")
-usuariouno45= tkinter.PhotoImage(file="jugador145.png")
+
 
 user2=tkinter.PhotoImage(file="usercar2e.png")
 
@@ -524,6 +528,10 @@ def colisionesbor2():
 
 def destruirall():
 
+    """
+    Esta función permite destruir todo lo que actualmente se esté ejecutando en el juego,
+    ya que destruye sus dos ventanas
+    """
     v.destroy()
     ventana.destroy()
 
@@ -539,12 +547,13 @@ def destruirall():
 ii=0
 
 def colisionescarros():
-    global x,contadorg1, contadorv1
+    
     '''
     Esta función se encarga de hacer el efecto de choque entre el carro del jugador uno y los enemigos, además permite recargar de gasolina con la
     nave de recarga, y a su vez resbalar en la mancha de aceite.
 
     '''
+    global x,contadorg1, contadorv1
   
 
 
@@ -802,30 +811,6 @@ def fondomoving2(fondoderecha,velocidad):
     fondojuego.move(fondoderecha, 0, velocidadfondo)
     if(fondojuego.coords(fondoderecha)[1]>2500):
             fondojuego.move(fondoderecha,0,-fondojuego.coords(fondoderecha)[1])
-"""
-def guardar():
-
-    archivoTxt = open("archivo.txt", "a")
-    archivoTxt.write(str(archivo))
-    archivoTxt.close()
-"""
-
-nivel=0
-
-    
-    
-
-    
-  
-           
-
-
-    
-    
-
-
-    
-    
   
 #################
 v1=0                             #
@@ -937,30 +922,24 @@ def principal():
         if contadorv1<200:
 
             contadorv1=contadorv1+0.09
-            #archivo["SpeedJugador1"]= round(contadorv1)
+      
 
             velocidadjugador1.set(round(contadorv1))
 
 
         contadord1=contadord1+0.09
 
-        #archivo["DistanceJugador1"]= round(contadord1)
+
         distanciajugador1.set(round(contadord1))
 
         
 
     
 
-
-        #partida.close()
-        #tiempodejuego()
-
         key()
 
         
-      
-        #print(var.set())
-        #guardar()
+
         v.after(15,principal)
 
 # tiempo de jugador 2
@@ -1324,6 +1303,10 @@ def pasar():
     ventana.destroy()
 
 def cargardatos():
+    """
+    Esta funció permite cargar datos previamente almacenados de ambos jugadores, y si es el caso
+    permitirles continuar la partida que estaban jugando
+    """
     global archivo,contador1, contadorg1, contadorv1, contadord1
 
   
@@ -1354,6 +1337,10 @@ def cargardatos():
 
 def cargardatos2():
     global archivo,contador1, contadorg1, contadorv1, contadord1
+    """
+    Esta funció permite cargar datos previamente almacenados de ambos jugadores, y si es el caso
+    permitirles continuar la partida que estaban jugando
+    """
 
   
 
@@ -1384,6 +1371,10 @@ def cargardatos2():
 def cargardatos3():
     global archivo,contador1, contadorg1, contadorv1, contadord1
 
+    """
+    Esta funció permite cargar datos previamente almacenados de ambos jugadores, y si es el caso
+    permitirles continuar la partida que estaban jugando
+    """
   
 
     partida= open("archivo.txt", "r")
@@ -1412,6 +1403,10 @@ def cargardatos3():
 
 def cargardatos4():
     global archivo,contador1, contadorg1, contadorv1, contadord1
+    """
+    Esta funció permite cargar datos previamente almacenados de ambos jugadores, y si es el caso
+    permitirles continuar la partida que estaban jugando
+    """
 
   
 
@@ -1442,6 +1437,10 @@ def cargardatos4():
 def cargardatos5():
     global archivo,contador1, contadorg1, contadorv1, contadord1, contador2, tiempojugador2
 
+    """
+    Esta funció permite cargar datos previamente almacenados de ambos jugadores, y si es el caso
+    permitirles continuar la partida que estaban jugando
+    """
 
     
 
@@ -1473,7 +1472,7 @@ def cargardatos5():
     
 
 
-
+##Label y botones para permitir cargar las partidas y seleccionar cuando y donde se quiere vcargar
 
 labelcontinuar=tkinter.Label(ventana, text="Cargar partida en : ",font=("Tempus Sans ITC",15),bg="white").place(x=50, y=615)      
 Continuar=tkinter.Button(ventana,text="Nivel 1" ,font=("Tempus Sans ITC",14),command=cargardatos).place(x=230, y=615)
@@ -1484,28 +1483,14 @@ Continuar5=tkinter.Button(ventana,text="Nivel 5" ,font=("Tempus Sans ITC",14),co
 
 
 
-
-
-
-
-
-
-
-
-
-
 # Liga el evento key al canvas
 fondojuego.bind("<KeyPress>",keydown)
 fondojuego.bind("<KeyRelease>",keyup)
 
 
-
-
 #enpaquetado( mostrar lo hecho con canvas)
 
 fondojuego.pack()
-
-
 
 
 #ciclo para escuchar los eventos
