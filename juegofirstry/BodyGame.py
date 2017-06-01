@@ -12,12 +12,14 @@ import random
 import math
 import pygame
 from pygame.locals import * #solo para la música
+import webbrowser
+
 
 pygame.mixer.init()
 
 
 musicaMenu = pygame.mixer.Sound("menu.wav")
-sonidoacelerar=pygame.mixer.Sound("acelerate.wav")
+
 sonidofail=pygame.mixer.Sound("loser.wav")
 crash=pygame.mixer.Sound("choque.wav")
 
@@ -31,7 +33,7 @@ recarga=pygame.mixer.Sound("gasolina.wav")
 
 
 
-musicaMenu.play()
+musicaMenu.play(20)
 
 # Crea la ventana que tendrá el menú asociado a la variable ventana
 ventana = tkinter.Tk()
@@ -47,8 +49,10 @@ fondomenu = tkinter.Label(ventana, image=imagen1).place(x=0 ,y=0)
 
 
 #Boton de instrucciones del juego
+def instrucciones():
 
-instructions=tkinter.Button(ventana,text="¿Cómo jugar?").place(x=20, y= 500 )
+    webbrowser.open_new(r'C:\Users\JuanJoséHoyosUrcu\Documents\GitHub\xCarGameJuanx\juegofirstry\manual.pdf')
+instructions=tkinter.Button(ventana,text="¿Cómo jugar?", command= instrucciones).place(x=20, y= 500 )
 
 
 
@@ -805,26 +809,10 @@ def guardar():
     archivoTxt.write(str(archivo))
     archivoTxt.close()
 """
-def cargardatos():
-    global archivo,contador1, contadorg1, contadorv1, contadord1
 
-  
+nivel=0
 
-    partida= open("archivo.txt", "r")
-    contador1=eval(partida.readline())
-    print(contador1)
-    contadorg1=eval(partida.readline())
-    print(contadorg1)
-    contadorv1=eval(partida.readline())
-    print(contadorv1)
-    contadord1=eval(partida.readline())
-    print(contadord1)
-
-    lvl1()
-
-    partida.close()
     
-
     
 
     
@@ -901,7 +889,7 @@ def principal():
     
 
     else:
-        
+
         Fighter(F,v2)#F es el movimiento en x, v2 el movimiento en y
         MiniVan(v1)
         
@@ -923,6 +911,7 @@ def principal():
             partida.write("\n"+str(round(contadorg1)))
             partida.write("\n"+str(round(contadorv1)))
             partida.write("\n"+str(round(contadord1)))
+      
             
 
             tiempojugador1.set(round(contador1))
@@ -932,6 +921,9 @@ def principal():
             partida.write("\n"+str(round(contadorg1)))
             partida.write("\n"+str(round(contadorv1)))
             partida.write("\n"+str(round(contadord1)))
+
+            contador1=contador1-0.015
+  
 
         if contadorg1>0:
 
@@ -999,7 +991,7 @@ def principal2():
     pueda iniciar el juego en el respectivo nivel para el jugador 2
     
     """
-    global imagenderecha, velocity, contador2, tiempojugador2,contadorg2,contadorv2
+    global imagenderecha, velocity, contador2, tiempojugador2,contadorg2,contadorv2, contadord2
 
     if  colisionesbor2() :
         crash.play()
@@ -1024,7 +1016,25 @@ def principal2():
             charge2(4)
 
             colisionescarros2()
+            partida=open("archivo2.txt","w")
             if contador2>0:
+
+                contador2=contador2-0.015
+                partida.write(str(round(contador2)))
+                partida.write("\n"+str(round(contadorg2)))
+                partida.write("\n"+str(round(contadorv2)))
+                partida.write("\n"+str(round(contadord2)))
+            else:
+                
+                
+                partida.write(str(round(contador2)))
+                partida.write("\n"+str(round(contadorg2)))
+                partida.write("\n"+str(round(contadorv2)))
+                partida.write("\n"+str(round(contadord2)))
+                contador2=contador2-0.015
+
+                
+
 
                 contador2=contador2-0.015            
 
@@ -1057,8 +1067,11 @@ def lvl1():
     """
     global v1,v2,F,po, imagenizquierda, velocity, nombre, nombrecaja,tiempo1, tiempojugador1, contador1
     musicaMenu.stop()
+
     pygame.mixer.music.load("nivel1.wav")
     pygame.mixer.music.play()
+    nivel=1
+
 
     fondojuego.delete(moraizq)
     fondojuego.delete(morader)
@@ -1101,6 +1114,7 @@ def lvl1():
     principal()
     principal2()
 
+
     
 
 
@@ -1109,6 +1123,8 @@ def lvl1():
 
 v.iconify()
 boton2=tkinter.Button(ventana, image=imagen_2boton,command=lvl1).place(x=1200, y=300)
+
+
 
 def lvl2():
     """
@@ -1122,6 +1138,7 @@ def lvl2():
 
     pygame.mixer.music.load("nivel2.wav")#canción del nivel 2
     pygame.mixer.music.play()#reproduce la canción del nivel2
+
 
     velocidadfondo=20
     fondojuego.delete(moraizq)
@@ -1173,6 +1190,7 @@ def lvl3():
     musicaMenu.stop()
     pygame.mixer.music.load("nivel3.wav")
     pygame.mixer.music.play()
+
 
     velocidadfondo=30
 
@@ -1226,6 +1244,7 @@ def lvl4():
 
      velocidadfondo=40
 
+
      fondojuego.delete(sizq)
      fondojuego.delete(sder)
      fondojuego.delete(c5)
@@ -1267,7 +1286,9 @@ def lvl5():
      pygame.mixer.music.play()
 
      velocidadfondo=50
-     
+
+
+
      labeljugador1=tkinter.Label(v,text=nombre.get(), font=("Tempus Sans ITC",20),fg="black",bg="white").place(x=540, y=339)
      labeljugador2=tkinter.Label(v,text=nombre2.get(), font=("Tempus Sans ITC",20),fg="black",bg="white").place(x=740, y=339)
      labeltiempo1=tkinter.Label(v,textvariable=tiempojugador1, font=("Tempus Sans ITC",20),fg="blue",bg="white").place(x=570, y=550)
@@ -1291,17 +1312,181 @@ def lvl5():
      principal2()
 v.iconify()
 boton6=tkinter.Button(ventana, image=imagen_6boton,command=lvl5).place(x=1200, y=500)
-Continuar=tkinter.Button(ventana,text="Continuar" ,font=("Tempus Sans ITC",12),command=cargardatos).place(x=1200, y=550)
+
 
 
 def pasar():
     """
-    Esta función permite al usuario pasar al siguiente nivel
+    Esta función permite al usuario pasar al siguiente nivel, sabiendo que debe cerrar el juego y volverlo a abrir para tener aaceso al siguiente nivel
 
     """
     v.destroy()
     ventana.destroy()
-    import BodyGame
+
+def cargardatos():
+    global archivo,contador1, contadorg1, contadorv1, contadord1
+
+  
+
+    partida= open("archivo.txt", "r")
+    contador1=eval(partida.readline())
+    print(contador1)
+    contadorg1=eval(partida.readline())
+    print(contadorg1)
+    contadorv1=eval(partida.readline())
+    print(contadorv1)
+    contadord1=eval(partida.readline())
+    print(contadord1)
+
+    partida2= open("archivo2.txt", "r")
+    contador2=eval(partida2.readline())
+    print(contador2)
+    contadorg2=eval(partida2.readline())
+    print(contadorg2)
+    contadorv2=eval(partida2.readline())
+    print(contadorv2)
+    contadord2=eval(partida2.readline())
+    print(contadord1)
+    lvl1()
+
+    partida.close()
+    partida2.close()
+
+def cargardatos2():
+    global archivo,contador1, contadorg1, contadorv1, contadord1
+
+  
+
+    partida= open("archivo.txt", "r")
+    contador1=eval(partida.readline())
+    print(contador1)
+    contadorg1=eval(partida.readline())
+    print(contadorg1)
+    contadorv1=eval(partida.readline())
+    print(contadorv1)
+    contadord1=eval(partida.readline())
+    print(contadord1)
+
+    partida2= open("archivo2.txt", "r")
+    contador2=eval(partida2.readline())
+    print(contador2)
+    contadorg2=eval(partida2.readline())
+    print(contadorg2)
+    contadorv2=eval(partida2.readline())
+    print(contadorv2)
+    contadord2=eval(partida2.readline())
+    print(contadord1)
+    lvl2()
+
+
+    partida.close()
+    partida2.close()
+def cargardatos3():
+    global archivo,contador1, contadorg1, contadorv1, contadord1
+
+  
+
+    partida= open("archivo.txt", "r")
+    contador1=eval(partida.readline())
+    print(contador1)
+    contadorg1=eval(partida.readline())
+    print(contadorg1)
+    contadorv1=eval(partida.readline())
+    print(contadorv1)
+    contadord1=eval(partida.readline())
+    print(contadord1)
+
+    partida2= open("archivo2.txt", "r")
+    contador2=eval(partida2.readline())
+    print(contador2)
+    contadorg2=eval(partida2.readline())
+    print(contadorg2)
+    contadorv2=eval(partida2.readline())
+    print(contadorv2)
+    contadord2=eval(partida2.readline())
+    print(contadord1)
+    lvl3()
+
+    partida.close()
+    partida2.close()
+
+def cargardatos4():
+    global archivo,contador1, contadorg1, contadorv1, contadord1
+
+  
+
+    partida= open("archivo.txt", "r")
+    contador1=eval(partida.readline())
+    print(contador1)
+    contadorg1=eval(partida.readline())
+    print(contadorg1)
+    contadorv1=eval(partida.readline())
+    print(contadorv1)
+    contadord1=eval(partida.readline())
+    print(contadord1)
+
+    partida2= open("archivo2.txt", "r")
+    contador2=eval(partida2.readline())
+    print(contador2)
+    contadorg2=eval(partida2.readline())
+    print(contadorg2)
+    contadorv2=eval(partida2.readline())
+    print(contadorv2)
+    contadord2=eval(partida2.readline())
+    print(contadord1)
+    lvl4()
+
+    partida.close()
+    partida2.close()
+
+def cargardatos5():
+    global archivo,contador1, contadorg1, contadorv1, contadord1, contador2, tiempojugador2
+
+
+    
+
+    
+    partida= open("archivo.txt", "r")
+    contador1=eval(partida.readline())
+    print(contador1)
+    contadorg1=eval(partida.readline())
+    print(contadorg1)
+    contadorv1=eval(partida.readline())
+    print(contadorv1)
+    contadord1=eval(partida.readline())
+    print(contadord1)
+
+    partida2= open("archivo2.txt", "r")
+    contador2=eval(partida2.readline())
+    print(contador2)
+    contadorg2=eval(partida2.readline())
+    print(contadorg2)
+    contadorv2=eval(partida2.readline())
+    print(contadorv2)
+    contadord2=eval(partida2.readline())
+    print(contadord1)
+    lvl5()
+
+    partida.close()
+    partida2.close()
+    
+    
+
+
+
+
+labelcontinuar=tkinter.Label(ventana, text="Cargar partida en : ",font=("Tempus Sans ITC",15),bg="white").place(x=50, y=615)      
+Continuar=tkinter.Button(ventana,text="Nivel 1" ,font=("Tempus Sans ITC",14),command=cargardatos).place(x=230, y=615)
+Continuar2=tkinter.Button(ventana,text="Nivel 2" ,font=("Tempus Sans ITC",14),command=cargardatos2).place(x=330, y=615)
+Continuar3=tkinter.Button(ventana,text="Nivel 3" ,font=("Tempus Sans ITC",14),command=cargardatos3).place(x=430, y=615)
+Continuar4=tkinter.Button(ventana,text="Nivel 4" ,font=("Tempus Sans ITC",14),command=cargardatos4).place(x=530, y=615)
+Continuar5=tkinter.Button(ventana,text="Nivel 5" ,font=("Tempus Sans ITC",14),command=cargardatos5).place(x=630, y=615)
+
+
+
+
+
+
 
 
 
